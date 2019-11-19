@@ -22,7 +22,7 @@ public class CharacterCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.Rotate(Vector3.up, Input.GetAxis("Mouse X") * 1f);
     }
 
     public virtual void Ctrl(float X,float Y,float Z)
@@ -40,5 +40,6 @@ public class CharacterCtrl : MonoBehaviour
 
         CharCtrl.Move(Move_Dir * Time.deltaTime);
     }
+
 
 }

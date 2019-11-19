@@ -255,7 +255,7 @@ MonoBehaviour:
   selectedRoadRightInnerOffset: 0
   selectedCrossingMaterial: 0
   crossingTextureInfoIndex: 0
-  handleSelection: 0
+  handleSelection: 1
   positionHandleSelection: 0
   markerDirXZ: 0
   defaultCrossing: {fileID: 0}
@@ -285,14 +285,14 @@ MonoBehaviour:
   osmTerrainBottomLon: 0
   osmTerrainLeftLat: 0
   osmTerrainRightLat: 0
-  terrainMinIndent: 2.9296875
-  minIndent: 5
+  terrainMinIndent: 5.859375
+  minIndent: 5.859375
   minSurrounding: 5
   maxIndentSurrounding: 50
-  terrainY: 0
-  terrainDetailSplatX: 0.48828125
-  terrainDetailSplatY: 0.48828125
-  detailOffsetVec: {x: 0.48828125, y: 0, z: 0.48828125}
+  terrainY: -10
+  terrainDetailSplatX: 0.9765625
+  terrainDetailSplatY: 0.9765625
+  detailOffsetVec: {x: 0.9765625, y: 0, z: 0.9765625}
   raise: 0
   baseVector: {x: 0, y: 0, z: 0}
   mirrorCrossings: 1
@@ -303,7 +303,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   terrainSplatTextures:
-  - Splat 1 - Grass
+  - Splat 1 - Texture_Dirt
+  - Splat 2 - Texture_Stone
   activeTerrain: {fileID: 0}
   activeTerrainY: 0
   selectedTerrain: 0
@@ -423,11 +424,11 @@ MonoBehaviour:
   tangentsInEditMode: 0
   calculateSmoothNormals: 1
   importSideObjectsAlert: 1
-  importRoadPresetsAlert: 0
+  importRoadPresetsAlert: 1
   importCrossingPresetsAlert: 0
   importSidewalkPresetsAlert: 0
-  updateSideObjectsAlert: 1
-  updateRoadPresetsAlert: 0
+  updateSideObjectsAlert: 0
+  updateRoadPresetsAlert: 1
   updateCrossingPresetsAlert: 0
   updateSidewalkPresetsAlert: 0
   waypointDistance: 10

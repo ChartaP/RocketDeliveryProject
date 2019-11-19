@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class CarCtrl : CharacterCtrl
 {
-    private Rigidbody CarRigidbody;
+    private Car Car;
     // Start is called before the first frame update
     void Start()
     {
-        CarRigidbody = transform.GetComponent<Rigidbody>();
+        if(Car == null)
+        {
+            Car = transform.GetComponent<Car>();
+        }
         Move_Dir = Vector3.zero;
     }
 
@@ -20,14 +23,12 @@ public class CarCtrl : CharacterCtrl
 
     public override void Ctrl(float X, float Y, float Z)
     {
-        Move_Dir = new Vector3(X, 0, Z);
-        Move_Dir = transform.TransformDirection(Move_Dir);
-        Move_Dir *= fSpeed;
+        Debug.Log( X +","+ Y+","+  Z);
+        Car.Accel(Z * fSpeed);
 
-        Move_Dir.y = Y * fJump;
+        Car.Break(Y * fSpeed);
 
-        Move_Dir.y -= fGracity * Time.deltaTime;
-
+        Car.Handle(X * fSpeed);
 
         //CharCtrl.Move(Move_Dir * Time.deltaTime);
     }
