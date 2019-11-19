@@ -14,3 +14,10 @@ The following packages were 추가됨:
   com.unity.modules.androidjni@1.0.0
 The following packages were 업데이트됨:
   com.unity.collab-proxy 1.2.9 버전에서 1.2.16버전으로  com.unity.textmeshpro 2.0.0 버전에서 2.0.1버전으로  com.unity.timeline 0.0.0-builtin 버전에서 1.1.0버전으로
+=== Sun Nov 17 23:45:00 2019
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were updated:
+  com.unity.ide.vscode from version 1.0.7 to 1.1.0
