@@ -26,7 +26,8 @@ public class Car : MonoBehaviour
 
     private eTransmission curTrans;
 
-    bool bSideGear = true;
+    [SerializeField]
+    private bool bSideGear = true;
     
     // Start is called before the first frame update
     void Start()
@@ -121,5 +122,15 @@ public class Car : MonoBehaviour
             case eTransmission.P:
                 break;
         }
+    }
+
+    public void CarActivate()
+    {
+        bSideGear = false;
+    }
+
+    public void CarUnactivate()
+    {
+        bSideGear = true;
     }
 }

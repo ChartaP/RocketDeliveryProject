@@ -32,4 +32,14 @@ public class CarCtrl : CharacterCtrl
 
         //CharCtrl.Move(Move_Dir * Time.deltaTime);
     }
+
+    public override void Enter()
+    {
+        Car.CarActivate();
+    }
+
+    public override void Exit()
+    {
+        Car.CarUnactivate();
+    }
 }

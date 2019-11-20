@@ -41,5 +41,14 @@ public class CharacterCtrl : MonoBehaviour
         CharCtrl.Move(Move_Dir * Time.deltaTime);
     }
 
+    public virtual void Enter()
+    {
+
+    }
+
+    public virtual void Exit()
+    {
+
+    }
 
 }

@@ -654,8 +654,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91efac3b89baf0145a8afa76dbefab37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fSpeed: 5
-  fJump: 10
+  fSpeed: 1000
+  fJump: 1000
 --- !u!114 &-2718430933431314612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -691,7 +691,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 0
-  outlineColor: {r: 1, g: 0.5009062, b: 0, a: 1}
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
   outlineWidth: 0
   precomputeOutline: 0
   bakeKeys: []
