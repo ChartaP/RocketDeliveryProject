@@ -37,6 +37,7 @@ public class Car : MonoBehaviour
             CarRigidbody = transform.GetComponent<Rigidbody>();
         }
         curTrans = eTransmission.P;
+        CarUnactivate();
 
     }
 
@@ -60,13 +61,6 @@ public class Car : MonoBehaviour
             WheelMesh[3].position = pos;
             WheelMesh[3].rotation = quat;
         }
-        if (bSideGear)
-        {
-            FRightWheel.brakeTorque = 100f;
-            FLeftWheel.brakeTorque = 100f;
-            BRightWheel.brakeTorque = 100f;
-            BLeftWheel.brakeTorque = 100f;
-        }
     }
 
     public void Accel(float fSpeed)
@@ -75,21 +69,20 @@ public class Car : MonoBehaviour
         {
             ChangeTrans(eTransmission.N);
         }
-        Debug.Log(Vector3.forward * fSpeed * Time.deltaTime);
-        CarRigidbody.AddForce(Vector3.forward * fSpeed * Time.deltaTime);
+        Debug.Log(Vector3.forward * fSpeed );
+        //CarRigidbody.AddForce(Vector3.forward * fSpeed );
         BRightWheel.motorTorque=fSpeed ;
         BLeftWheel.motorTorque=fSpeed ;
     }
 
     public void Break(float fSpeed)
     {
-        if (fSpeed < 0.1f)
-            return;
+        BRightWheel.brakeTorque = fSpeed;
+        BLeftWheel.brakeTorque = fSpeed;
         if (CarRigidbody.velocity.z > 0.1f || CarRigidbody.velocity.z < -0.1f)
         {
-            //CarRigidbody.AddForce(Vector3.forward * fSpeed * Time.deltaTime);
-            BRightWheel.brakeTorque = fSpeed ;
-            BLeftWheel.brakeTorque = fSpeed ;
+            //CarRigidbody.AddForce(Vector3.forward * fSpeed );
+           
         }
         else
         {
@@ -127,10 +120,18 @@ public class Car : MonoBehaviour
     public void CarActivate()
     {
         bSideGear = false;
+        FRightWheel.brakeTorque = 0;
+        FLeftWheel.brakeTorque = 0;
+        BRightWheel.brakeTorque = 0;
+        BLeftWheel.brakeTorque = 0;
     }
 
     public void CarUnactivate()
     {
         bSideGear = true;
+        FRightWheel.brakeTorque = 100f;
+        FLeftWheel.brakeTorque = 100f;
+        BRightWheel.brakeTorque = 100f;
+        BLeftWheel.brakeTorque = 100f;
     }
 }
