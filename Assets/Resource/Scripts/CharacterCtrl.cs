@@ -10,6 +10,10 @@ public class CharacterCtrl : MonoBehaviour
     public float fSpeed =5;
     public float fJump  =10;
     protected const float fGracity = 9.8f;
+
+    [SerializeField]
+    public float cameraHeight = 2;
+    public float cameraDistance=2;
     
 
     // Start is called before the first frame update
@@ -22,7 +26,7 @@ public class CharacterCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(Vector3.up, Input.GetAxis("Mouse X") * 1f);
+        
     }
 
     public virtual void Ctrl(float X,float Y,float Z)

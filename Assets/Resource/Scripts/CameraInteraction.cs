@@ -22,7 +22,7 @@ public class CameraInteraction : MonoBehaviour
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    public void InteractUpdate()
     {
         RaycastHit hit;
         Outline outLine;
@@ -61,7 +61,8 @@ public class CameraInteraction : MonoBehaviour
         {
             if (curHit.tag == "Car")
             {
-                PlayerCtrl.Instance.ChangeCtrl(curHit);
+                PlayerCtrl.Instance.TakeInCar(curHit);
+
             }
         }
     }

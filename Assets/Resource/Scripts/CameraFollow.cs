@@ -8,7 +8,7 @@ public class CameraFollow : MonoBehaviour
     private Transform target = null;
     [SerializeField]
     private Camera MainCamera;
-    private Vector3 CameraPos = new Vector3(0,2.2f,-2f);
+    private Vector3 CameraPos = new Vector3(0,2.2f,2f);
     // Start is called before the first frame update
     void Start()
     {
@@ -21,14 +21,19 @@ public class CameraFollow : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        MainCamera.transform.RotateAround(target.position, target.right , Input.GetAxis("Mouse Y") * -0.5f);
-        MainCamera.transform.Rotate(Vector3.right, Input.GetAxis("Mouse Y") * -0.5f);
+        if (!target)
+            return;
+        MainCamera.transform.position = target.position;
+        target.Rotate(Vector3.right, Input.GetAxis("Mouse Y") * 1.0f);
+        MainCamera.transform.position -= Quaternion.Euler(target.eulerAngles.x, target.eulerAngles.y, 0) * Vector3.forward * CameraPos.z ;
+        MainCamera.transform.position += new Vector3(0,CameraPos.y,0);
+        MainCamera.transform.LookAt(target.position);
     }
 
-    public void TargetChange(Transform target)
+    public void SetPosition(float Height,float distance)
     {
-        this.target = target;
-        MainCamera.transform.parent = target;
-        MainCamera.transform.position = target.position + CameraPos;
+        CameraPos.y = Height;
+        CameraPos.z = distance;
     }
+    
 }

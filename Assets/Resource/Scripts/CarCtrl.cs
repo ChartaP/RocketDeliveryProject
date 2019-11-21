@@ -24,11 +24,11 @@ public class CarCtrl : CharacterCtrl
     public override void Ctrl(float X, float Y, float Z)
     {
         Debug.Log( X +","+ Y+","+  Z);
-        Car.Accel(Z * fSpeed);
+        Car.Accel(Z * fSpeed * Time.deltaTime);
 
-        Car.Break(Y * fSpeed);
+        Car.Break(Y * fSpeed * Time.deltaTime);
 
-        Car.Handle(X * fSpeed);
+        Car.Handle(X * Time.deltaTime);
 
         //CharCtrl.Move(Move_Dir * Time.deltaTime);
     }

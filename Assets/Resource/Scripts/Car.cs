@@ -71,18 +71,17 @@ public class Car : MonoBehaviour
         }
         Debug.Log(Vector3.forward * fSpeed );
         //CarRigidbody.AddForce(Vector3.forward * fSpeed );
-        BRightWheel.motorTorque=fSpeed ;
-        BLeftWheel.motorTorque=fSpeed ;
+        BRightWheel.motorTorque = fSpeed *20;
+        BLeftWheel.motorTorque = fSpeed * 20;
     }
 
     public void Break(float fSpeed)
     {
-        BRightWheel.brakeTorque = fSpeed;
-        BLeftWheel.brakeTorque = fSpeed;
         if (CarRigidbody.velocity.z > 0.1f || CarRigidbody.velocity.z < -0.1f)
         {
             //CarRigidbody.AddForce(Vector3.forward * fSpeed );
-           
+            BRightWheel.brakeTorque = fSpeed;
+            BLeftWheel.brakeTorque = fSpeed;
         }
         else
         {
@@ -92,8 +91,8 @@ public class Car : MonoBehaviour
 
     public void Handle(float fDir)
     {
-        FRightWheel.steerAngle = fDir/3;
-        FLeftWheel.steerAngle = fDir/3;
+        FRightWheel.steerAngle = fDir * 2000;
+        FLeftWheel.steerAngle = fDir * 2000;
     }
 
     private void ChangeTrans(eTransmission eTrans)
