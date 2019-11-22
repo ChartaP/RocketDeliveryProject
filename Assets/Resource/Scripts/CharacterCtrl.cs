@@ -10,8 +10,7 @@ public class CharacterCtrl : MonoBehaviour
     public float fSpeed =5;
     public float fJump  =10;
     protected const float fGracity = 9.8f;
-
-    [SerializeField]
+    
     public float cameraHeight = 2;
     public float cameraDistance=2;
     

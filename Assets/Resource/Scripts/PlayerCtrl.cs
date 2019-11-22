@@ -6,10 +6,10 @@ public class PlayerCtrl : MonoBehaviour
 {
     private static PlayerCtrl instance = null;
     public Transform CameraTarget = null;
-    public Transform manTrans = null;
     public CameraFollow cameraFollow = null;
     public CameraInteraction cameraInteraction = null;
-    public Transform CharTrans;
+    public Transform manTrans;
+    public Transform CurTrans;
     [SerializeField]
     private CharacterCtrl CurCtrl;
     [SerializeField]
@@ -32,8 +32,8 @@ public class PlayerCtrl : MonoBehaviour
     {
         if(CurCtrl == null)
         {
-            CurCtrl = CharTrans.GetComponent<CharacterCtrl>();
-            manTrans = CharTrans;
+            CurCtrl = manTrans.GetComponent<CharacterCtrl>();
+            CurTrans = manTrans;
         }
     }
 
@@ -50,9 +50,6 @@ public class PlayerCtrl : MonoBehaviour
             else
                 TakeOutCar();
         }
-        
-
-        
     }
 
     private void LateUpdate()
@@ -64,21 +61,24 @@ public class PlayerCtrl : MonoBehaviour
     public void TakeInCar(Transform CarTrans)
     {
         bTakeCar = true;
+        CarTrans.GetComponent<Car>().CarEnter(CurCtrl.transform);
         ChangeCtrl(CarTrans);
     }
 
     public void TakeOutCar()
     {
         bTakeCar = false;
+        CurCtrl.transform.GetComponent<Car>().CarExit();
         ChangeCtrl(manTrans);
     }
 
     public void ChangeCtrl(Transform CharTrans)
     {
         this.CurCtrl.Exit();
-        this.CharTrans = CharTrans;
+        this.CurTrans = CharTrans;
         CurCtrl = CharTrans.GetComponent<CharacterCtrl>();
         this.CurCtrl.Enter();
+        cameraFollow.SetPosition(CurCtrl.cameraHeight, CurCtrl.cameraDistance);
     }
 
     

@@ -20,8 +20,10 @@ public class CouponmanCtrl : CharacterCtrl
 
     public override void Ctrl(float X, float Y, float Z)
     {
-
-        transform.eulerAngles = Vector3.Lerp(transform.eulerAngles,PlayerCtrl.Instance.CameraTarget.eulerAngles,100 * Time.deltaTime);
+        if (!Input.GetKey(KeyCode.LeftAlt))
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, PlayerCtrl.Instance.CameraTarget.rotation, 10 * Time.deltaTime);
+        }
         if (CharCtrl.isGrounded)
         {
             Move_Dir = new Vector3(X, 0, Z);

@@ -784,7 +784,7 @@ MonoBehaviour:
   fSpeed: 5
   fJump: 5
   cameraHeight: 2
-  cameraDistance: 2
+  cameraDistance: 1
 --- !u!1 &8735085367228278343
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,6 +14,14 @@ public class Car : MonoBehaviour
     private WheelCollider BRightWheel;
     [SerializeField]
     private WheelCollider BLeftWheel;
+    [SerializeField]
+    private Transform CarSeat;
+    [SerializeField]
+    private bool isEnter = false;
+    public bool IsEnter { get { return isEnter; } }
+    [SerializeField]
+    private Transform passenger= null;
+
 
     [SerializeField]
     private List<Transform> WheelMesh = new List<Transform>();
@@ -32,7 +40,7 @@ public class Car : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(CarRigidbody == null)
+        if (CarRigidbody == null)
         {
             CarRigidbody = transform.GetComponent<Rigidbody>();
         }
@@ -69,7 +77,6 @@ public class Car : MonoBehaviour
         {
             ChangeTrans(eTransmission.N);
         }
-        Debug.Log(Vector3.forward * fSpeed );
         //CarRigidbody.AddForce(Vector3.forward * fSpeed );
         BRightWheel.motorTorque = fSpeed *20;
         BLeftWheel.motorTorque = fSpeed * 20;
@@ -91,8 +98,8 @@ public class Car : MonoBehaviour
 
     public void Handle(float fDir)
     {
-        FRightWheel.steerAngle = fDir * 2000;
-        FLeftWheel.steerAngle = fDir * 2000;
+        FRightWheel.steerAngle = fDir * 40;
+        FLeftWheel.steerAngle = fDir * 40;
     }
 
     private void ChangeTrans(eTransmission eTrans)
@@ -132,5 +139,28 @@ public class Car : MonoBehaviour
         FLeftWheel.brakeTorque = 100f;
         BRightWheel.brakeTorque = 100f;
         BLeftWheel.brakeTorque = 100f;
+    }
+
+    public void CarEnter(Transform passenger)
+    {
+        if (isEnter)
+            return;
+        passenger.parent = CarSeat;
+        passenger.position = CarSeat.position;
+        passenger.rotation = CarSeat.rotation;
+        passenger.GetComponent<CharacterController>().enabled = false;
+        this.passenger = passenger;
+        isEnter = true;
+    }
+
+    public void CarExit()
+    {
+        if (!isEnter)
+            return;
+        passenger.parent = this.transform.parent;
+        passenger.transform.position += new Vector3(-2,1,0);
+        passenger.GetComponent<CharacterController>().enabled = true;
+        passenger = null;
+        isEnter = false;
     }
 }

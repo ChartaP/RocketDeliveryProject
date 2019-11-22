@@ -441,7 +441,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 100
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -472,10 +472,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91efac3b89baf0145a8afa76dbefab37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fSpeed: 100
-  fJump: 100
+  fSpeed: 750
+  fJump: 750
   cameraHeight: 4
-  cameraDistance: 4
+  cameraDistance: 5
 --- !u!114 &-5446704713329265309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -493,6 +493,9 @@ MonoBehaviour:
   FLeftWheel: {fileID: 6351838584499180377}
   BRightWheel: {fileID: 3272586151775480651}
   BLeftWheel: {fileID: 3619413065719532356}
+  CarSeat: {fileID: 3137101604023031839}
+  isEnter: 0
+  passenger: {fileID: 0}
   WheelMesh: []
   bSideGear: 1
 --- !u!114 &8416207675605869579
@@ -573,7 +576,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2219107471896700672}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.78, y: 0.4, z: 1}
+  m_LocalPosition: {x: -0.9, y: 0.4, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1150859046628435307}
@@ -589,13 +592,13 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.3
   m_SuspensionSpring:
-    spring: 100
-    damper: 15
+    spring: 300
+    damper: 10
     targetPosition: 0
   m_SuspensionDistance: 0.2
   m_ForceAppPointDistance: 0.2
   m_Mass: 60
-  m_WheelDampingRate: 0.25
+  m_WheelDampingRate: 1
   m_ForwardFriction:
     m_ExtremumSlip: 0.6
     m_ExtremumValue: 1
@@ -634,7 +637,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2601131704736470131}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.78, y: 0.4, z: 1}
+  m_LocalPosition: {x: 0.9, y: 0.4, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1150859046628435307}
@@ -650,13 +653,13 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.3
   m_SuspensionSpring:
-    spring: 100
-    damper: 15
+    spring: 300
+    damper: 10
     targetPosition: 0
   m_SuspensionDistance: 0.2
   m_ForceAppPointDistance: 0.2
   m_Mass: 60
-  m_WheelDampingRate: 0.25
+  m_WheelDampingRate: 1
   m_ForwardFriction:
     m_ExtremumSlip: 0.6
     m_ExtremumValue: 1
@@ -695,7 +698,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3663781242990801138}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.78, y: 0.4, z: -1}
+  m_LocalPosition: {x: 0.9, y: 0.4, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1150859046628435307}
@@ -711,13 +714,13 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.3
   m_SuspensionSpring:
-    spring: 100
-    damper: 15
+    spring: 300
+    damper: 10
     targetPosition: 0
   m_SuspensionDistance: 0.2
   m_ForceAppPointDistance: 0.2
   m_Mass: 60
-  m_WheelDampingRate: 0.25
+  m_WheelDampingRate: 1
   m_ForwardFriction:
     m_ExtremumSlip: 0.6
     m_ExtremumValue: 1
@@ -756,7 +759,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6429637572512937001}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.78, y: 0.4, z: -1}
+  m_LocalPosition: {x: -0.9, y: 0.4, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1150859046628435307}
@@ -772,13 +775,13 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.3
   m_SuspensionSpring:
-    spring: 100
-    damper: 15
+    spring: 300
+    damper: 10
     targetPosition: 0
   m_SuspensionDistance: 0.2
   m_ForceAppPointDistance: 0.2
   m_Mass: 60
-  m_WheelDampingRate: 0.25
+  m_WheelDampingRate: 1
   m_ForwardFriction:
     m_ExtremumSlip: 0.6
     m_ExtremumValue: 1
@@ -802,7 +805,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3137101604023031839}
   m_Layer: 0
-  m_Name: Carsit
+  m_Name: CarSeat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -816,7 +819,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8507820930648618728}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1150859046628435307}
