@@ -5,6 +5,10 @@ using UnityEngine;
 public class CouponmanCtrl : CharacterCtrl
 {
     private CharacterController CharCtrl = null;
+    [SerializeField]
+    private Animator AniCtrl = null;
+    [SerializeField]
+    private Transform bagTrans;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +21,7 @@ public class CouponmanCtrl : CharacterCtrl
     {
         
     }
+    
 
     public override void Ctrl(float X, float Y, float Z)
     {
@@ -24,27 +29,41 @@ public class CouponmanCtrl : CharacterCtrl
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, PlayerCtrl.Instance.CameraTarget.rotation, 10 * Time.deltaTime);
         }
+        
         if (CharCtrl.isGrounded)
         {
+            AniCtrl.SetBool("isGround", true);
             Move_Dir = new Vector3(X, 0, Z);
             Move_Dir = transform.TransformDirection(Move_Dir);
             Move_Dir *= fSpeed;
 
             Move_Dir.y = Y * fJump;
+            if(Y * fJump > 1f)
+            {
+                AniCtrl.SetTrigger("Jump");
+            }
+        }
+        else
+        {
+            LayerMask mask = (-1) - (1 << LayerMask.NameToLayer("Player"));
+            if (!Physics.Raycast(transform.position, -1*transform.up, 1f, mask))
+            {
+                AniCtrl.SetBool("isGround", false);
+            }
         }
 
         Move_Dir.y -= fGracity * Time.deltaTime;
-
+        AniCtrl.SetFloat("zSpeed", Z * fSpeed);
         CharCtrl.Move(Move_Dir * Time.deltaTime);
     }
 
     public override void Enter()
     {
-
+        AniCtrl.SetBool("isDrive", true);
     }
 
     public override void Exit()
     {
-
+        AniCtrl.SetBool("isDrive", false);
     }
 }

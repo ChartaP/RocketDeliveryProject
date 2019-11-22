@@ -34,11 +34,9 @@ public class CarCtrl : CharacterCtrl
 
     public override void Enter()
     {
-        Car.CarActivate();
     }
 
     public override void Exit()
     {
-        Car.CarUnactivate();
     }
 }

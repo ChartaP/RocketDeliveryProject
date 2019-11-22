@@ -49,16 +49,16 @@ WheelCollider:
   m_Mass: 200
   m_WheelDampingRate: 2
   m_ForwardFriction:
-    m_ExtremumSlip: 0.6
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.9
-    m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_ExtremumSlip: 0.5
+    m_ExtremumValue: 0.75
+    m_AsymptoteSlip: 0.3
+    m_AsymptoteValue: 0.5
+    m_Stiffness: 0.75
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.4
+    m_ExtremumSlip: 0.9
     m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.95
+    m_AsymptoteSlip: 0.5
+    m_AsymptoteValue: 0.75
     m_Stiffness: 1
   m_Enabled: 1
 --- !u!1 &789358842122490037
@@ -110,17 +110,17 @@ WheelCollider:
   m_Mass: 200
   m_WheelDampingRate: 2
   m_ForwardFriction:
-    m_ExtremumSlip: 0.6
+    m_ExtremumSlip: 0.9
     m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.9
+    m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.4
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.95
-    m_Stiffness: 1
+    m_ExtremumSlip: 0.5
+    m_ExtremumValue: 0.75
+    m_AsymptoteSlip: 0.3
+    m_AsymptoteValue: 0.5
+    m_Stiffness: 0.75
   m_Enabled: 1
 --- !u!1 &1278834750036173555
 GameObject:
@@ -171,16 +171,16 @@ WheelCollider:
   m_Mass: 200
   m_WheelDampingRate: 2
   m_ForwardFriction:
-    m_ExtremumSlip: 0.6
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.9
-    m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_ExtremumSlip: 0.5
+    m_ExtremumValue: 0.75
+    m_AsymptoteSlip: 0.3
+    m_AsymptoteValue: 0.5
+    m_Stiffness: 0.75
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.4
+    m_ExtremumSlip: 0.9
     m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.95
+    m_AsymptoteSlip: 0.5
+    m_AsymptoteValue: 0.75
     m_Stiffness: 1
   m_Enabled: 1
 --- !u!1 &2092642102325600489
@@ -658,7 +658,7 @@ MonoBehaviour:
   fSpeed: 1500
   fJump: 1500
   cameraHeight: 4
-  cameraDistance: 7
+  cameraDistance: 5
 --- !u!114 &-2718430933431314612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -677,6 +677,8 @@ MonoBehaviour:
   BRightWheel: {fileID: 8116237009822605270}
   BLeftWheel: {fileID: 8274007775218209444}
   CarSeat: {fileID: 3641567027283454301}
+  isEnter: 0
+  passenger: {fileID: 0}
   WheelMesh:
   - {fileID: 2096851849978237599}
   - {fileID: 2096490608144575165}
@@ -696,7 +698,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 0
-  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
   outlineWidth: 0
   precomputeOutline: 0
   bakeKeys: []
@@ -750,17 +752,17 @@ WheelCollider:
   m_Mass: 200
   m_WheelDampingRate: 2
   m_ForwardFriction:
-    m_ExtremumSlip: 0.6
+    m_ExtremumSlip: 0.9
     m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.9
+    m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.4
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.95
-    m_Stiffness: 1
+    m_ExtremumSlip: 0.5
+    m_ExtremumValue: 0.75
+    m_AsymptoteSlip: 0.3
+    m_AsymptoteValue: 0.5
+    m_Stiffness: 0.75
   m_Enabled: 1
 --- !u!1 &5606871045073943518
 GameObject:

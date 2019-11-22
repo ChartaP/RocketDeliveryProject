@@ -77,7 +77,7 @@ public class Car : MonoBehaviour
         {
             ChangeTrans(eTransmission.N);
         }
-        //CarRigidbody.AddForce(Vector3.forward * fSpeed );
+        //CarRigidbody.AddForce(transform.forward * fSpeed );
         BRightWheel.motorTorque = fSpeed *20;
         BLeftWheel.motorTorque = fSpeed * 20;
     }
@@ -86,7 +86,6 @@ public class Car : MonoBehaviour
     {
         if (CarRigidbody.velocity.z > 0.1f || CarRigidbody.velocity.z < -0.1f)
         {
-            //CarRigidbody.AddForce(Vector3.forward * fSpeed );
             BRightWheel.brakeTorque = fSpeed;
             BLeftWheel.brakeTorque = fSpeed;
         }
@@ -98,8 +97,8 @@ public class Car : MonoBehaviour
 
     public void Handle(float fDir)
     {
-        FRightWheel.steerAngle = fDir * 40;
-        FLeftWheel.steerAngle = fDir * 40;
+        FRightWheel.steerAngle = fDir * 50;
+        FLeftWheel.steerAngle = fDir * 50;
     }
 
     private void ChangeTrans(eTransmission eTrans)
@@ -123,18 +122,16 @@ public class Car : MonoBehaviour
         }
     }
 
-    public void CarActivate()
+    private void CarActivate()
     {
-        bSideGear = false;
         FRightWheel.brakeTorque = 0;
         FLeftWheel.brakeTorque = 0;
         BRightWheel.brakeTorque = 0;
         BLeftWheel.brakeTorque = 0;
     }
 
-    public void CarUnactivate()
+    private void CarUnactivate()
     {
-        bSideGear = true;
         FRightWheel.brakeTorque = 100f;
         FLeftWheel.brakeTorque = 100f;
         BRightWheel.brakeTorque = 100f;
@@ -145,9 +142,12 @@ public class Car : MonoBehaviour
     {
         if (isEnter)
             return;
+        CarActivate();
         passenger.parent = CarSeat;
         passenger.position = CarSeat.position;
         passenger.rotation = CarSeat.rotation;
+        CharacterCtrl ctrl = passenger.GetComponent<CharacterCtrl>();
+        ctrl.Enter();
         passenger.GetComponent<CharacterController>().enabled = false;
         this.passenger = passenger;
         isEnter = true;
@@ -157,8 +157,11 @@ public class Car : MonoBehaviour
     {
         if (!isEnter)
             return;
+        CarUnactivate();
         passenger.parent = this.transform.parent;
         passenger.transform.position += new Vector3(-2,1,0);
+        CharacterCtrl ctrl = passenger.GetComponent<CharacterCtrl>();
+        ctrl.Exit();
         passenger.GetComponent<CharacterController>().enabled = true;
         passenger = null;
         isEnter = false;

@@ -61,6 +61,7 @@ public class PlayerCtrl : MonoBehaviour
     public void TakeInCar(Transform CarTrans)
     {
         bTakeCar = true;
+        cameraInteraction.IsEnable = false;
         CarTrans.GetComponent<Car>().CarEnter(CurCtrl.transform);
         ChangeCtrl(CarTrans);
     }
@@ -68,16 +69,15 @@ public class PlayerCtrl : MonoBehaviour
     public void TakeOutCar()
     {
         bTakeCar = false;
+        cameraInteraction.IsEnable = true;
         CurCtrl.transform.GetComponent<Car>().CarExit();
         ChangeCtrl(manTrans);
     }
 
     public void ChangeCtrl(Transform CharTrans)
     {
-        this.CurCtrl.Exit();
         this.CurTrans = CharTrans;
         CurCtrl = CharTrans.GetComponent<CharacterCtrl>();
-        this.CurCtrl.Enter();
         cameraFollow.SetPosition(CurCtrl.cameraHeight, CurCtrl.cameraDistance);
     }
 
