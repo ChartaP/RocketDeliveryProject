@@ -727,7 +727,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8732262542931264557}
   - component: {fileID: 1031089193638049460}
-  - component: {fileID: 185569874946455544}
+  - component: {fileID: -2710621663423772689}
   m_Layer: 0
   m_Name: CouponMan
   m_TagString: Player
@@ -769,7 +769,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!114 &185569874946455544
+--- !u!114 &-2710621663423772689
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -778,11 +778,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8735084958440436003}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 873684c60917a3e48be7a0718c2e97b3, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a70efc989d2c3246bfd7ff26ac2863d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fSpeed: 5
   fJump: 5
+  cameraHeight: 2
+  cameraDistance: 2
 --- !u!1 &8735085367228278343
 GameObject:
   m_ObjectHideFlags: 0
