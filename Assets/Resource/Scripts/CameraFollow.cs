@@ -6,8 +6,7 @@ public class CameraFollow : MonoBehaviour
 {
     [SerializeField]
     private Transform target = null;
-    [SerializeField]
-    private Camera MainCamera;
+    public Camera MainCamera;
     private Vector3 CameraPos = new Vector3(0,2f,1f);
     private float Y_Dir = 0;
     private float X_Dir = 0;
@@ -44,6 +43,14 @@ public class CameraFollow : MonoBehaviour
     {
         CameraPos.y = Height;
         CameraPos.z = distance;
+    }
+
+    public float Y
+    {
+        get
+        {
+            return Y_Dir;
+        }
     }
     
 }

@@ -11,7 +11,7 @@ public class PlayerCtrl : MonoBehaviour
     public Transform manTrans;
     public Transform CurTrans;
     [SerializeField]
-    private CharacterCtrl CurCtrl;
+    private ObjectCtrl CurCtrl;
     [SerializeField]
     private bool bTakeCar = false;
 
@@ -32,7 +32,7 @@ public class PlayerCtrl : MonoBehaviour
     {
         if(CurCtrl == null)
         {
-            CurCtrl = manTrans.GetComponent<CharacterCtrl>();
+            CurCtrl = manTrans.GetComponent<ObjectCtrl>();
             CurTrans = manTrans;
         }
     }
@@ -41,6 +41,7 @@ public class PlayerCtrl : MonoBehaviour
     void Update()
     {
         CurCtrl.Ctrl(Input.GetAxis("Horizontal"),Input.GetAxis("Jump"), Input.GetAxis("Vertical"));
+        
         CameraTarget.position = CurCtrl.transform.position;
         CameraTarget.Rotate(Vector3.up * Input.GetAxis("Mouse X"));
         if (Input.GetKeyDown(KeyCode.F))
@@ -50,12 +51,23 @@ public class PlayerCtrl : MonoBehaviour
             else
                 TakeOutCar();
         }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            (CurCtrl as CouponmanCtrl).ChangeWeapon(0);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            (CurCtrl as CouponmanCtrl).ChangeWeapon(1);
+        }
     }
 
     private void LateUpdate()
     {
-        if(!bTakeCar)
+        if (!bTakeCar)
+        {
             cameraInteraction.InteractUpdate();
+            (CurCtrl as CouponmanCtrl).ViewCtrl(cameraFollow.Y, CameraTarget.rotation, cameraInteraction.ViewPointPos);
+        }
     }
 
     public void TakeInCar(Transform CarTrans)
@@ -77,9 +89,12 @@ public class PlayerCtrl : MonoBehaviour
     public void ChangeCtrl(Transform CharTrans)
     {
         this.CurTrans = CharTrans;
-        CurCtrl = CharTrans.GetComponent<CharacterCtrl>();
+        CurCtrl = CharTrans.GetComponent<ObjectCtrl>();
         cameraFollow.SetPosition(CurCtrl.cameraHeight, CurCtrl.cameraDistance);
     }
 
-    
+    public void GetItem(Transform ItemTrans)
+    {
+
+    }
 }

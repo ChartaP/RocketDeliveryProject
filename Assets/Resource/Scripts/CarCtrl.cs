@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarCtrl : CharacterCtrl
+public class CarCtrl : ObjectCtrl
 {
     private Car Car;
     // Start is called before the first frame update

@@ -4,11 +4,22 @@ using UnityEngine;
 
 public class CameraInteraction : MonoBehaviour
 {
+    public Camera MainCamera;
     [SerializeField]
-    private Camera MainCamera;
     private Transform curHit = null;
+    [SerializeField]
+    private float distance = 5.0f;
     private bool isEnable = true;
+    private Vector3 viewPointPos = Vector3.zero;
 
+    public Vector3 ViewPointPos
+    {
+        get
+        {
+            return viewPointPos;
+        }
+    }
+    
     public bool IsEnable
     {
         set
@@ -43,52 +54,87 @@ public class CameraInteraction : MonoBehaviour
         
     }
 
+    private void OnGUI()
+    {
+        if(curHit != null)
+        {
+            if (isInteractable(curHit.tag))
+            {
+                GUI.Label(new Rect(Screen.width/2-32, Screen.height/2-256, 128, 64),"Press F");
+            }
+        }
+    }
+
     // Update is called once per frame
     public void InteractUpdate()
     {
         if (!isEnable)
             return;
         RaycastHit hit;
-        Outline outLine;
         LayerMask mask = (-1) - (1 << LayerMask.NameToLayer("Player"));
 
-        if (Physics.Raycast(MainCamera.transform.position,MainCamera.transform.forward,out hit,100f, mask))
+        if (Physics.Raycast(MainCamera.transform.position,MainCamera.transform.forward,out hit,Mathf.Infinity, mask))
         {
+            Debug.DrawRay(MainCamera.transform.position, MainCamera.transform.forward * distance, Color.green,0.01f);
+            viewPointPos = hit.point;
             if (hit.transform != curHit && curHit != null)
             {
-                if (curHit.tag == "Car")
+                if (isInteractable(curHit.tag))
                 {
-                    outLine = curHit.GetComponent<Outline>();
-                    outLine.OutlineWidth = 0.0f;
+                    outLineWidth(curHit, 0.0f);
                 }
             }
-            if(hit.transform.tag == "Car")
+            else if(Vector3.Distance(transform.position, viewPointPos) > distance)
             {
-                outLine = hit.transform.GetComponent<Outline>();
-                outLine.OutlineWidth = 10.0f;
+                if (isInteractable(curHit.tag))
+                {
+                    outLineWidth(curHit, 0.0f);
+                }
+            }
+            if (isInteractable(hit.transform.tag))
+            {
+                if (Vector3.Distance(transform.position, viewPointPos) < distance) {
+                    outLineWidth(hit.transform, 10.0f);
+                }
             }
             curHit = hit.transform;
         }
         else if(curHit != null)
         {
-            if (curHit.tag == "Car")
+            if (isInteractable(curHit.tag))
             {
-                outLine = curHit.GetComponent<Outline>();
-                outLine.OutlineWidth = 0.0f;
+                outLineWidth(curHit, 0.0f);
             }
             curHit = null;
         }
     }
 
+    private void outLineWidth(Transform target,float width)
+    {
+        Outline outLine;
+        outLine = target.GetComponent<Outline>();
+        outLine.OutlineWidth = width;
+    }
+
+    private bool isInteractable(string tag)
+    {
+        return tag == "Car" || tag == "Item";
+    }
 
     public void Interact()
     {
         if (curHit != null)
         {
-            if (curHit.tag == "Car")
+            switch (curHit.tag)
             {
-                PlayerCtrl.Instance.TakeInCar(curHit);
-
+                case "Car":
+                    PlayerCtrl.Instance.TakeInCar(curHit);
+                    break;
+                case "Item":
+                    PlayerCtrl.Instance.GetItem(curHit);
+                    break;
+                default:
+                    break;
             }
         }
     }

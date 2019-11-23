@@ -4,32 +4,32 @@ using UnityEngine;
 
 public class CouponmanCtrl : CharacterCtrl
 {
-    private CharacterController CharCtrl = null;
-    [SerializeField]
-    private Animator AniCtrl = null;
+    
     [SerializeField]
     private Transform bagTrans;
+    
     // Start is called before the first frame update
     void Start()
     {
+        for(int i = 0; i < weaponList.Length; i++)
+        {
+            weaponList[i] = null;
+        }
         CharCtrl = transform.GetComponent<CharacterController>();
         Move_Dir = Vector3.zero;
+        Neck = AniCtrl.GetBoneTransform(HumanBodyBones.Neck);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-    
 
+    }
+
+    
+    
     public override void Ctrl(float X, float Y, float Z)
     {
-        if (!Input.GetKey(KeyCode.LeftAlt))
-        {
-            transform.rotation = Quaternion.Lerp(transform.rotation, PlayerCtrl.Instance.CameraTarget.rotation, 10 * Time.deltaTime);
-        }
-        
         if (CharCtrl.isGrounded)
         {
             AniCtrl.SetBool("isGround", true);

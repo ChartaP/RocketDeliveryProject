@@ -146,7 +146,7 @@ public class Car : MonoBehaviour
         passenger.parent = CarSeat;
         passenger.position = CarSeat.position;
         passenger.rotation = CarSeat.rotation;
-        CharacterCtrl ctrl = passenger.GetComponent<CharacterCtrl>();
+        ObjectCtrl ctrl = passenger.GetComponent<ObjectCtrl>();
         ctrl.Enter();
         passenger.GetComponent<CharacterController>().enabled = false;
         this.passenger = passenger;
@@ -160,7 +160,7 @@ public class Car : MonoBehaviour
         CarUnactivate();
         passenger.parent = this.transform.parent;
         passenger.transform.position += new Vector3(-2,1,0);
-        CharacterCtrl ctrl = passenger.GetComponent<CharacterCtrl>();
+        ObjectCtrl ctrl = passenger.GetComponent<ObjectCtrl>();
         ctrl.Exit();
         passenger.GetComponent<CharacterController>().enabled = true;
         passenger = null;
