@@ -785,7 +785,7 @@ MonoBehaviour:
   fSpeed: 5
   fJump: 5
   cameraHeight: 2
-  cameraDistance: 1
+  cameraDistance: 1.5
   CharCtrl: {fileID: 1031089193638049460}
   AniCtrl: {fileID: 8677385437749719007}
   nWeaponState: 0
@@ -4647,11 +4647,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8732262542931264557}
     m_Modifications:
-    - target: {fileID: 6445778603584166831, guid: 320e69c42e63387499e092244805a38c,
-        type: 3}
-      propertyPath: fCooldown
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4445776441987076929, guid: 320e69c42e63387499e092244805a38c,
         type: 3}
       propertyPath: m_Name
@@ -4711,6 +4706,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6445778603584166831, guid: 320e69c42e63387499e092244805a38c,
+        type: 3}
+      propertyPath: fCooldown
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 320e69c42e63387499e092244805a38c, type: 3}
