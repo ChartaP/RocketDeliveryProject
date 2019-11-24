@@ -11,23 +11,56 @@ public class CharacterCtrl : ObjectCtrl
     [SerializeField]
     protected int nWeaponState = 0;
     [SerializeField]
-    protected GunAim gunAim = null;
+    public GunAim gunAim = null;
     protected Transform Neck = null;
     [SerializeField]
     protected GameObject[] weaponList = new GameObject[1];
-
+    protected GameObject equipWeapon = null;
     [SerializeField]
     protected Transform RHand;
+    [SerializeField]
+    protected Weapon Punch;
+
+    
 
     public bool ChangeWeapon(int state)
     {
+        
         if (weaponList.Length < state)
             return false;
-        if (weaponList[state-1] == null)
-            return false;
+        if (state != 0)
+        {
+            if (weaponList[state - 1] == null)
+                return false;
+        }
+        TriggerWeapon(false);
+        if (equipWeapon != null)
+            Destroy(equipWeapon);
         nWeaponState = state;
         AniCtrl.SetInteger("nWeaponState", state);
+        equipWeapon = Instantiate(weaponList[state - 1], RHand);
+        equipWeapon.tag = transform.tag;
+        equipWeapon.GetComponent<Weapon>().RegOwner(this);
+        
         return true;
+    }
+
+    public void TriggerWeapon(bool isTrigger)
+    {
+        if(nWeaponState == 0)
+        {
+            if (isTrigger)
+                Punch.Trigger(AniCtrl);
+            else
+                Punch.Untrigger();
+        }
+        else
+        {
+            if (isTrigger)
+                equipWeapon.GetComponent<Weapon>().Trigger(AniCtrl);
+            else
+                equipWeapon.GetComponent<Weapon>().Untrigger();
+        }
     }
 
     public void ViewCtrl(float angle, Quaternion ViewTargetRotation, Vector3 viewPointPos)
@@ -36,9 +69,35 @@ public class CharacterCtrl : ObjectCtrl
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, ViewTargetRotation, 10 * Time.deltaTime);
             Neck.LookAt(viewPointPos);
-            //Neck.rotation = Neck.rotation * Quaternion.Euler(Neck.position - viewPointPos);
             gunAim.GetViewPointPos(viewPointPos);
             gunAim.Aimming(angle);
         }
+    }
+
+    public void GetItem(DropItem item)
+    {
+        AniCtrl.SetTrigger("Pick");
+        eItem itemNum;
+        GameObject prefab;
+        item.Pick(out prefab,out itemNum);
+        if ((int)itemNum / 10 == 2)
+        {
+            switch (itemNum)
+            {
+                case eItem.AKM:
+                    weaponList[0] = prefab;
+                    break;
+            }
+        }
+    }
+
+    public override void Enter()
+    {
+        AniCtrl.SetBool("isDrive", true);
+    }
+
+    public override void Exit()
+    {
+        AniCtrl.SetBool("isDrive", false);
     }
 }

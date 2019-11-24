@@ -44,21 +44,25 @@ public class PlayerCtrl : MonoBehaviour
         
         CameraTarget.position = CurCtrl.transform.position;
         CameraTarget.Rotate(Vector3.up * Input.GetAxis("Mouse X"));
-        if (Input.GetKeyDown(KeyCode.F))
+        if (bTakeCar)
         {
-            if (!bTakeCar)
-                cameraInteraction.Interact();
-            else
+            if (Input.GetKeyDown(KeyCode.F))
                 TakeOutCar();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        else
         {
-            (CurCtrl as CouponmanCtrl).ChangeWeapon(0);
+            if (Input.GetKeyDown(KeyCode.F))
+                cameraInteraction.Interact();
+            if (Input.GetKeyDown(KeyCode.X))
+                (CurCtrl as CharacterCtrl).ChangeWeapon(0);
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+                (CurCtrl as CharacterCtrl).ChangeWeapon(1);
+            if (Input.GetMouseButtonDown(0))
+                (CurCtrl as CharacterCtrl).TriggerWeapon(true);
+            if (Input.GetMouseButtonUp(0))
+                (CurCtrl as CharacterCtrl).TriggerWeapon(false);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            (CurCtrl as CouponmanCtrl).ChangeWeapon(1);
-        }
+        
     }
 
     private void LateUpdate()
@@ -95,6 +99,7 @@ public class PlayerCtrl : MonoBehaviour
 
     public void GetItem(Transform ItemTrans)
     {
-
+        DropItem item = ItemTrans.GetComponent<DropItem>();
+        (CurCtrl as CharacterCtrl).GetItem(item);
     }
 }

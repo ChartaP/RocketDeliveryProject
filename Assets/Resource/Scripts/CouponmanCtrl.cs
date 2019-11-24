@@ -15,6 +15,7 @@ public class CouponmanCtrl : CharacterCtrl
         {
             weaponList[i] = null;
         }
+        Punch.RegOwner(this);
         CharCtrl = transform.GetComponent<CharacterController>();
         Move_Dir = Vector3.zero;
         Neck = AniCtrl.GetBoneTransform(HumanBodyBones.Neck);
@@ -57,13 +58,5 @@ public class CouponmanCtrl : CharacterCtrl
         CharCtrl.Move(Move_Dir * Time.deltaTime);
     }
 
-    public override void Enter()
-    {
-        AniCtrl.SetBool("isDrive", true);
-    }
-
-    public override void Exit()
-    {
-        AniCtrl.SetBool("isDrive", false);
-    }
+    
 }

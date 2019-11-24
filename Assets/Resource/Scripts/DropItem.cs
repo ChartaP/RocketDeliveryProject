@@ -15,7 +15,7 @@ public class DropItem : MonoBehaviour
     private GameObject model;
 
     [SerializeField]
-    private eItem ItemNum = eItem.AKM;
+    private eItem eItemNum = eItem.AKM;
 
     [SerializeField]
     private GameObject equipPrefab = null;
@@ -24,5 +24,23 @@ public class DropItem : MonoBehaviour
     private void Update()
     {
         model.transform.Rotate(Vector3.up, 60f * Time.deltaTime);
+    }
+
+    public GameObject GetPrefab()
+    {
+        return equipPrefab;
+    }
+
+    public eItem GetNum()
+    {
+        return eItemNum;
+    }
+
+    public bool Pick(out GameObject prefab, out eItem num)
+    {
+        prefab = equipPrefab;
+        num = eItemNum;
+        Destroy(transform.gameObject, 0.01f);
+        return true;
     }
 }

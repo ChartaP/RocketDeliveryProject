@@ -43,6 +43,8 @@ public class CameraInteraction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         if (MainCamera == null)
         {
             MainCamera = Camera.main;
@@ -56,11 +58,15 @@ public class CameraInteraction : MonoBehaviour
 
     private void OnGUI()
     {
-        if(curHit != null)
+        GUIStyle style = new GUIStyle();
+        style.fontSize = 24;
+        style.normal.textColor = Color.white;
+        
+        if (curHit != null)
         {
             if (isInteractable(curHit.tag))
             {
-                GUI.Label(new Rect(Screen.width/2-32, Screen.height/2-256, 128, 64),"Press F");
+                GUI.Label(new Rect(Screen.width/2-64, (int)(Screen.height/1.5), 128, 64),"Press F", style);
             }
         }
     }
@@ -77,18 +83,21 @@ public class CameraInteraction : MonoBehaviour
         {
             Debug.DrawRay(MainCamera.transform.position, MainCamera.transform.forward * distance, Color.green,0.01f);
             viewPointPos = hit.point;
-            if (hit.transform != curHit && curHit != null)
+            if (curHit != null)
             {
-                if (isInteractable(curHit.tag))
+                if (hit.transform != curHit)
                 {
-                    outLineWidth(curHit, 0.0f);
+                    if (isInteractable(curHit.tag))
+                    {
+                        outLineWidth(curHit, 0.0f);
+                    }
                 }
-            }
-            else if(Vector3.Distance(transform.position, viewPointPos) > distance)
-            {
-                if (isInteractable(curHit.tag))
+                else if (Vector3.Distance(transform.position, viewPointPos) > distance)
                 {
-                    outLineWidth(curHit, 0.0f);
+                    if (isInteractable(curHit.tag))
+                    {
+                        outLineWidth(curHit, 0.0f);
+                    }
                 }
             }
             if (isInteractable(hit.transform.tag))
