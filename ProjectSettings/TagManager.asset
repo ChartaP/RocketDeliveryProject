@@ -8,6 +8,8 @@ TagManager:
   - Item
   - FxTemporaire
   - AI
+  - Dead
+  - Terrain
   layers:
   - Default
   - TransparentFX
@@ -22,7 +24,7 @@ TagManager:
   - Character
   - Bulding
   - Sensor
-  - 
+  - Car
   - 
   - 
   - 

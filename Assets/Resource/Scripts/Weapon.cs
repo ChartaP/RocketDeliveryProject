@@ -67,5 +67,17 @@ public class Weapon : MonoBehaviour
         Anim.SetTrigger("WeaponFire");
     }
 
+    public virtual bool IsAim(GameObject target)
+    {
+        RaycastHit hit;
 
+        if (Physics.BoxCast(startpoint.position,new Vector3(0.2f, 0.2f, 0.2f), startpoint.forward, out hit,startpoint.rotation, fDistance))
+        {
+            if (target == hit.transform.gameObject)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

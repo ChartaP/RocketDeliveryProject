@@ -27,6 +27,15 @@ public class PlayerCtrl : MonoBehaviour
         }
     }
 
+    private void OnGUI()
+    {
+        GUIStyle style = new GUIStyle();
+        style.fontSize = 24;
+        style.normal.textColor = Color.white;
+
+        GUI.Label(new Rect(32,Screen.height -32, 128, 32), "HP:"+manTrans.GetComponent<ObjectCtrl>().CurHP+"/"+manTrans.GetComponent<ObjectCtrl>().MaxHP, style);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -70,7 +79,7 @@ public class PlayerCtrl : MonoBehaviour
         if (!bTakeCar)
         {
             cameraInteraction.InteractUpdate();
-            (CurCtrl as CouponmanCtrl).ViewCtrl(cameraFollow.Y, CameraTarget.rotation, cameraInteraction.ViewPointPos);
+            (CurCtrl as CharacterCtrl).ViewCtrl(cameraFollow.Y, CameraTarget.rotation, cameraInteraction.ViewPointPos);
         }
     }
 

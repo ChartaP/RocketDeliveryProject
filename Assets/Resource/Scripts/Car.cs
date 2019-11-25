@@ -77,9 +77,9 @@ public class Car : MonoBehaviour
         {
             ChangeTrans(eTransmission.N);
         }
-        //CarRigidbody.AddForce(transform.forward * fSpeed );
-        BRightWheel.motorTorque = fSpeed *20;
-        BLeftWheel.motorTorque = fSpeed * 20;
+        //CarRigidbody.AddForce(transform.up * -fSpeed *10f  );
+        BRightWheel.motorTorque = fSpeed *15;
+        BLeftWheel.motorTorque = fSpeed * 15;
     }
 
     public void Break(float fSpeed)
@@ -97,8 +97,8 @@ public class Car : MonoBehaviour
 
     public void Handle(float fDir)
     {
-        FRightWheel.steerAngle = fDir * 50;
-        FLeftWheel.steerAngle = fDir * 50;
+        FRightWheel.steerAngle = fDir * 40;
+        FLeftWheel.steerAngle = fDir * 40;
     }
 
     private void ChangeTrans(eTransmission eTrans)

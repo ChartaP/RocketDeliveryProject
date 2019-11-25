@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1150859046628435297}
   - component: {fileID: 1150859046629238081}
   - component: {fileID: 1150859046630205313}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: police_car_wheel_front_right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 1150859046628435299}
   - component: {fileID: 1150859046629238083}
   - component: {fileID: 1150859046630205315}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: police_car_wheel_front_left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 1150859046628435301}
   - component: {fileID: 1150859046629238085}
   - component: {fileID: 1150859046630205317}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: police_car_wheel_back_right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 1150859046628435303}
   - component: {fileID: 1150859046629238087}
   - component: {fileID: 1150859046630205319}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: police_car_wheel_back_left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 1150859046628435305}
   - component: {fileID: 1150859046629238089}
   - component: {fileID: 1150859046630205321}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: police_car_main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -404,7 +404,7 @@ GameObject:
   - component: {fileID: 3704363924381952071}
   - component: {fileID: -5446704713329265309}
   - component: {fileID: 8416207675605869579}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: PoliceCar1
   m_TagString: Car
   m_Icon: {fileID: 0}
@@ -529,7 +529,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1433916167404921983}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -565,7 +565,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3080314499188857942}
   - component: {fileID: 6351838584499180377}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: FLWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -605,15 +605,15 @@ WheelCollider:
   m_WheelDampingRate: 1
   m_ForwardFriction:
     m_ExtremumSlip: 0.5
-    m_ExtremumValue: 0.75
+    m_ExtremumValue: 2
     m_AsymptoteSlip: 0.3
-    m_AsymptoteValue: 0.5
+    m_AsymptoteValue: 1
     m_Stiffness: 0.75
   m_SidewaysFriction:
     m_ExtremumSlip: 0.9
-    m_ExtremumValue: 1
+    m_ExtremumValue: 2
     m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
+    m_AsymptoteValue: 1
     m_Stiffness: 1
   m_Enabled: 1
 --- !u!1 &2601131704736470131
@@ -626,7 +626,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4445096651454878905}
   - component: {fileID: 6077774293967212421}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: FRWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -641,7 +641,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2601131704736470131}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.7, y: 0.4, z: 1}
+  m_LocalPosition: {x: 0.8, y: 0.4, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1150859046628435307}
@@ -666,15 +666,15 @@ WheelCollider:
   m_WheelDampingRate: 1
   m_ForwardFriction:
     m_ExtremumSlip: 0.5
-    m_ExtremumValue: 0.75
+    m_ExtremumValue: 2
     m_AsymptoteSlip: 0.3
-    m_AsymptoteValue: 0.5
+    m_AsymptoteValue: 1
     m_Stiffness: 0.75
   m_SidewaysFriction:
     m_ExtremumSlip: 0.9
-    m_ExtremumValue: 1
+    m_ExtremumValue: 2
     m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
+    m_AsymptoteValue: 1
     m_Stiffness: 1
   m_Enabled: 1
 --- !u!1 &3663781242990801138
@@ -687,7 +687,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5310879530306376125}
   - component: {fileID: 3272586151775480651}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: BRWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -702,7 +702,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3663781242990801138}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.7, y: 0.4, z: -1}
+  m_LocalPosition: {x: 0.8, y: 0.4, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1150859046628435307}
@@ -727,15 +727,15 @@ WheelCollider:
   m_WheelDampingRate: 1
   m_ForwardFriction:
     m_ExtremumSlip: 0.9
-    m_ExtremumValue: 1
+    m_ExtremumValue: 2
     m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
+    m_AsymptoteValue: 1
     m_Stiffness: 1
   m_SidewaysFriction:
     m_ExtremumSlip: 0.5
-    m_ExtremumValue: 0.75
+    m_ExtremumValue: 2
     m_AsymptoteSlip: 0.3
-    m_AsymptoteValue: 0.5
+    m_AsymptoteValue: 1
     m_Stiffness: 0.75
   m_Enabled: 1
 --- !u!1 &6429637572512937001
@@ -748,7 +748,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7437116488134034960}
   - component: {fileID: 3619413065719532356}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: BLWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -788,15 +788,15 @@ WheelCollider:
   m_WheelDampingRate: 1
   m_ForwardFriction:
     m_ExtremumSlip: 0.9
-    m_ExtremumValue: 1
+    m_ExtremumValue: 2
     m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
+    m_AsymptoteValue: 1
     m_Stiffness: 1
   m_SidewaysFriction:
     m_ExtremumSlip: 0.5
-    m_ExtremumValue: 0.75
+    m_ExtremumValue: 2
     m_AsymptoteSlip: 0.3
-    m_AsymptoteValue: 0.5
+    m_AsymptoteValue: 1
     m_Stiffness: 0.75
   m_Enabled: 1
 --- !u!1 &8507820930648618728
@@ -808,7 +808,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3137101604023031839}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: CarSeat
   m_TagString: Untagged
   m_Icon: {fileID: 0}

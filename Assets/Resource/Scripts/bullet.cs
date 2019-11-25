@@ -38,7 +38,11 @@ public class bullet : MonoBehaviour
             return;
         if (isDead == false)
         {
-            Debug.Log(collision.transform.name);
+            if(!(collision.transform.tag == "Default" || collision.transform.tag == "Terrain"))
+            {
+                collision.transform.GetComponent<ObjectCtrl>().GetDamage(fDamage);
+            }
+
             Instantiate(effect, transform.position, transform.rotation);
             isDead = true;
             Destroy(this.gameObject, 0.001f);

@@ -9,6 +9,10 @@ public class ObjectCtrl : MonoBehaviour
     public float fSpeed =5;
     public float fJump  =10;
     protected const float fGracity = 9.8f;
+    [SerializeField]
+    protected float fMaxHP = 100f;
+
+    protected float fCurHP = 100f;
     
     public float cameraHeight = 2;
     public float cameraDistance=2;
@@ -22,7 +26,15 @@ public class ObjectCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(fCurHP <= 0)
+        {
+            Dead();
+        }
+    }
+
+    protected void Dead()
+    {
+
     }
 
     public virtual void Ctrl(float X,float Y,float Z)
@@ -39,4 +51,17 @@ public class ObjectCtrl : MonoBehaviour
 
     }
 
+    public void GetDamage(float fDamage)
+    {
+        fCurHP = fCurHP - fDamage <= 0 ? 0 : fCurHP - fDamage;
+    }
+
+    public float MaxHP
+    {
+        get{return fMaxHP;}
+    }
+
+    public float CurHP
+    { get{ return fCurHP;}
+    }
 }

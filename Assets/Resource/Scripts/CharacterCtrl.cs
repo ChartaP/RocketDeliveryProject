@@ -20,8 +20,16 @@ public class CharacterCtrl : ObjectCtrl
     protected Transform RHand;
     [SerializeField]
     protected Weapon Punch;
+    [SerializeField]
+    protected GameObject Regdoll = null;
 
-    
+    public int CurWeapon
+    {
+        get
+        {
+            return nWeaponState;
+        }
+    }
 
     public bool ChangeWeapon(int state)
     {
@@ -33,14 +41,20 @@ public class CharacterCtrl : ObjectCtrl
             if (weaponList[state - 1] == null)
                 return false;
         }
+        
         TriggerWeapon(false);
         if (equipWeapon != null)
             Destroy(equipWeapon);
         nWeaponState = state;
         AniCtrl.SetInteger("nWeaponState", state);
-        equipWeapon = Instantiate(weaponList[state - 1], RHand);
-        equipWeapon.tag = transform.tag;
-        equipWeapon.GetComponent<Weapon>().RegOwner(this);
+        if (state != 0)
+        {
+            equipWeapon = Instantiate(weaponList[state - 1], RHand);
+            equipWeapon.tag = transform.tag;
+            equipWeapon.GetComponent<Weapon>().RegOwner(this);
+        }
+        else
+            equipWeapon = null;
         
         return true;
     }
@@ -67,7 +81,8 @@ public class CharacterCtrl : ObjectCtrl
     {
         if (!Input.GetKey(KeyCode.LeftAlt))
         {
-            transform.rotation = Quaternion.Lerp(transform.rotation, ViewTargetRotation, 10 * Time.deltaTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation , ViewTargetRotation, 24f*Time.deltaTime);
+            
             Neck.LookAt(viewPointPos);
             gunAim.GetViewPointPos(viewPointPos);
             gunAim.Aimming(angle);
@@ -88,6 +103,18 @@ public class CharacterCtrl : ObjectCtrl
                     weaponList[0] = prefab;
                     break;
             }
+        }
+    }
+
+    public bool IsWeaponAim(GameObject target)
+    {
+        if (nWeaponState == 0)
+        {
+            return Punch.IsAim(target);
+        }
+        else
+        {
+            return equipWeapon.GetComponent<Weapon>().IsAim(target);
         }
     }
 

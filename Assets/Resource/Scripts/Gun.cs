@@ -13,6 +13,13 @@ public class Gun : Weapon
     private GameObject effect = null;
     [SerializeField]
     private float fDrag = 0f;
+
+    [SerializeField]
+    private int nCharge = 30;
+
+    [SerializeField]
+    private int curCharge = 0;
+
     // Start is called before the first frame update
 
     protected override void Fire(Animator Anim)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AICtrl : MonoBehaviour
 {
-    public Transform EyeTarget = null;
+    public Sensor mySensor = null;
 
     public Transform manTrans;
     public Transform CurTrans;
@@ -14,15 +14,18 @@ public class AICtrl : MonoBehaviour
     private bool bTakeCar = false;
 
     [SerializeField]
-    private float fHorizontal = 8.0f;
+    private float fHorizontal = 1.0f;
     [SerializeField]
-    private float fVertical = 8.0f;
+    private float fVertical = 1.0f;
     [SerializeField]
-    private float fJump = 1000.0f;
+    private float fJump = 10.0f;
 
     private float curHorizontal = 0.0f;
     private float curVertical = 0.0f;
     private float curJump = 0.0f;
+
+    [SerializeField]
+    private float AtkRange = 10f;
 
     void Start()
     {
@@ -35,7 +38,38 @@ public class AICtrl : MonoBehaviour
 
     void Update()
     {
-
+        GameObject target = null;
+        if(mySensor.FindedUnit(out target))
+        {
+            if(Vector3.Distance(transform.position,target.transform.position) > AtkRange)
+            {
+                if ((CurCtrl as CharacterCtrl).CurWeapon != 0)
+                    (CurCtrl as CharacterCtrl).ChangeWeapon(0);
+                curVertical = fVertical;
+            }
+            else
+            {
+                if ((CurCtrl as CharacterCtrl).CurWeapon != 1)
+                    (CurCtrl as CharacterCtrl).ChangeWeapon(1);
+                if((CurCtrl as CharacterCtrl).IsWeaponAim(target))
+                    (CurCtrl as CharacterCtrl).TriggerWeapon(true);
+                else
+                    (CurCtrl as CharacterCtrl).TriggerWeapon(false);
+            }
+        }
+        else
+        {
+            if ((CurCtrl as CharacterCtrl).CurWeapon != 0)
+                (CurCtrl as CharacterCtrl).ChangeWeapon(0);
+        }
+        bool rightWay = true;
+        if(mySensor.IsDeadEnd(out rightWay))
+        {
+            if (rightWay)
+                curHorizontal = fHorizontal;
+            else
+                curHorizontal = -fHorizontal;
+        }
         CurCtrl.Ctrl(curHorizontal, curJump, curVertical);
         curHorizontal = Mathf.Lerp(curHorizontal, 0f, 4f * Time.deltaTime);
         curVertical = Mathf.Lerp(curVertical, 0f, 4f * Time.deltaTime);
@@ -44,11 +78,10 @@ public class AICtrl : MonoBehaviour
         //CameraTarget.Rotate(Vector3.up * Input.GetAxis("Mouse X"));
         if (bTakeCar)
         {
-
+            
         }
         else
         {
-            
         }
 
     }
@@ -59,7 +92,7 @@ public class AICtrl : MonoBehaviour
         if (!bTakeCar)
         {
             //cameraInteraction.InteractUpdate();
-            //(CurCtrl as CouponmanCtrl).ViewCtrl(0, transform.rotation , cameraInteraction.ViewPointPos);
+            (CurCtrl as CharacterCtrl).ViewCtrl(mySensor.EyeDirX().eulerAngles.x+1f, mySensor.EyeDirY() ,mySensor.ViewPointPos);
         }
     }
 

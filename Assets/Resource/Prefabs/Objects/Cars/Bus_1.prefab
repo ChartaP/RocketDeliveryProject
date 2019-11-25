@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1737077833777532880}
   - component: {fileID: 3347400259417120817}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: FRWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,15 +50,15 @@ WheelCollider:
   m_WheelDampingRate: 2
   m_ForwardFriction:
     m_ExtremumSlip: 0.5
-    m_ExtremumValue: 0.75
+    m_ExtremumValue: 2
     m_AsymptoteSlip: 0.3
-    m_AsymptoteValue: 0.5
+    m_AsymptoteValue: 1
     m_Stiffness: 0.75
   m_SidewaysFriction:
     m_ExtremumSlip: 0.9
-    m_ExtremumValue: 1
+    m_ExtremumValue: 2
     m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
+    m_AsymptoteValue: 1
     m_Stiffness: 1
   m_Enabled: 1
 --- !u!1 &789358842122490037
@@ -71,7 +71,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2508238190563007767}
   - component: {fileID: 8116237009822605270}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: BRWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,15 +111,15 @@ WheelCollider:
   m_WheelDampingRate: 2
   m_ForwardFriction:
     m_ExtremumSlip: 0.9
-    m_ExtremumValue: 1
+    m_ExtremumValue: 2
     m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
+    m_AsymptoteValue: 1
     m_Stiffness: 1
   m_SidewaysFriction:
     m_ExtremumSlip: 0.5
-    m_ExtremumValue: 0.75
+    m_ExtremumValue: 2
     m_AsymptoteSlip: 0.3
-    m_AsymptoteValue: 0.5
+    m_AsymptoteValue: 1
     m_Stiffness: 0.75
   m_Enabled: 1
 --- !u!1 &1278834750036173555
@@ -132,7 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2200356194014073701}
   - component: {fileID: 32975746853707459}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: FLWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,15 +172,15 @@ WheelCollider:
   m_WheelDampingRate: 2
   m_ForwardFriction:
     m_ExtremumSlip: 0.5
-    m_ExtremumValue: 0.75
+    m_ExtremumValue: 2
     m_AsymptoteSlip: 0.3
-    m_AsymptoteValue: 0.5
+    m_AsymptoteValue: 1
     m_Stiffness: 0.75
   m_SidewaysFriction:
     m_ExtremumSlip: 0.9
-    m_ExtremumValue: 1
+    m_ExtremumValue: 2
     m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
+    m_AsymptoteValue: 1
     m_Stiffness: 1
   m_Enabled: 1
 --- !u!1 &2092642102325600489
@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 2096855790201889191}
   - component: {fileID: 2121551527412755651}
   - component: {fileID: 2115074939995339569}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Object019
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 2096851849978237599}
   - component: {fileID: 2124754292173130881}
   - component: {fileID: 2114626838515504721}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Object022
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -350,7 +350,7 @@ GameObject:
   - component: {fileID: 2091833801993490095}
   - component: {fileID: 2125652205103296459}
   - component: {fileID: 2115677815409388381}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Object021
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,7 +428,7 @@ GameObject:
   - component: {fileID: 2096490608144575165}
   - component: {fileID: 2125212900912962543}
   - component: {fileID: 2116078608328975949}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Object020
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -506,7 +506,7 @@ GameObject:
   - component: {fileID: 2091450653869984233}
   - component: {fileID: 2125187081450881357}
   - component: {fileID: 2116115174363062405}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Object018
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -587,7 +587,7 @@ GameObject:
   - component: {fileID: -7070321642673330465}
   - component: {fileID: -2718430933431314612}
   - component: {fileID: -3324904046210961635}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Bus_1
   m_TagString: Car
   m_Icon: {fileID: 0}
@@ -713,7 +713,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4227420057843164521}
   - component: {fileID: 8274007775218209444}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: BLWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -753,15 +753,15 @@ WheelCollider:
   m_WheelDampingRate: 2
   m_ForwardFriction:
     m_ExtremumSlip: 0.9
-    m_ExtremumValue: 1
+    m_ExtremumValue: 2
     m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
+    m_AsymptoteValue: 1
     m_Stiffness: 1
   m_SidewaysFriction:
     m_ExtremumSlip: 0.5
-    m_ExtremumValue: 0.75
+    m_ExtremumValue: 2
     m_AsymptoteSlip: 0.3
-    m_AsymptoteValue: 0.5
+    m_AsymptoteValue: 1
     m_Stiffness: 0.75
   m_Enabled: 1
 --- !u!1 &5606871045073943518
@@ -773,7 +773,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3641567027283454301}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: CarSeat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -803,7 +803,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3369887727011043197}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
