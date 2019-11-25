@@ -16,6 +16,8 @@ public class Weapon : MonoBehaviour
     protected float fDistance = 2.5f;
     [SerializeField]
     protected Transform startpoint;
+    [SerializeField]
+    protected GameObject bullet = null;
 
     [SerializeField]
     protected IEnumerator work = null;
@@ -65,15 +67,19 @@ public class Weapon : MonoBehaviour
     protected virtual void Fire(Animator Anim)
     {
         Anim.SetTrigger("WeaponFire");
+        GameObject temp = Instantiate(bullet, startpoint.position, startpoint.rotation, owner.transform.parent);
+        temp.tag = owner.tag;
+        temp.GetComponent<Bullet>().SetBullet(fDamage, 1);
+        temp.GetComponent<Rigidbody>().AddForce(startpoint.forward * 500f);
     }
 
     public virtual bool IsAim(GameObject target)
     {
-        RaycastHit hit;
-
-        if (Physics.BoxCast(startpoint.position,new Vector3(0.2f, 0.2f, 0.2f), startpoint.forward, out hit,startpoint.rotation, fDistance))
+        RaycastHit[] hits;
+        hits = Physics.BoxCastAll(startpoint.position, new Vector3(0.4f, 0.4f, 0.4f), startpoint.forward, startpoint.rotation, fDistance);
+        foreach(RaycastHit hit in hits)
         {
-            if (target == hit.transform.gameObject)
+            if (hit.transform.tag == target.tag)
             {
                 return true;
             }

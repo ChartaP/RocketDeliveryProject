@@ -63,13 +63,14 @@ public class AICtrl : MonoBehaviour
                 (CurCtrl as CharacterCtrl).ChangeWeapon(0);
         }
         bool rightWay = true;
+        /*
         if(mySensor.IsDeadEnd(out rightWay))
         {
             if (rightWay)
                 curHorizontal = fHorizontal;
             else
                 curHorizontal = -fHorizontal;
-        }
+        }*/
         CurCtrl.Ctrl(curHorizontal, curJump, curVertical);
         curHorizontal = Mathf.Lerp(curHorizontal, 0f, 4f * Time.deltaTime);
         curVertical = Mathf.Lerp(curVertical, 0f, 4f * Time.deltaTime);

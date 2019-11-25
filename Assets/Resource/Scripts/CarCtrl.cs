@@ -2,12 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class CarCtrl : ObjectCtrl
 {
-    private Car Car;
+    protected Car Car;
+    [SerializeField]
+    protected GameObject DestroyEffect = null;
+    [SerializeField]
+    protected float fEffectSize = 1.0f;
     // Start is called before the first frame update
     void Start()
     {
+        fCurHP = fMaxHP;
+        eObjType = eObjectType.Car;
         if(Car == null)
         {
             Car = transform.GetComponent<Car>();
@@ -18,7 +26,24 @@ public class CarCtrl : ObjectCtrl
     // Update is called once per frame
     void Update()
     {
+        if (CurHP <= 0)
+        {
+            Dead();
+        }
+    }
 
+    protected override void Dead()
+    {
+        Instantiate(DestroyEffect, transform.position,transform.rotation).transform.localScale = new Vector3(fEffectSize, fEffectSize, fEffectSize);
+
+        this.Car.CarExit();
+        Destroy(gameObject, 0.01f);
+    }
+
+    public override void GetDamage(float fDamage)
+    {
+        float result = fDamage / 4;
+        fCurHP = fCurHP - result <= 0 ? 0 : fCurHP - result;
     }
 
     public override void Ctrl(float X, float Y, float Z)

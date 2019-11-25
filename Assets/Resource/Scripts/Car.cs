@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum eCarType
+{
+    Close = 0,
+    Open = 1
+}
+
 public class Car : MonoBehaviour
 {
     [SerializeField]
@@ -25,6 +31,8 @@ public class Car : MonoBehaviour
 
     [SerializeField]
     private List<Transform> WheelMesh = new List<Transform>();
+    [SerializeField]
+    private eCarType eType = eCarType.Close;
 
     enum eTransmission
     {
@@ -138,17 +146,24 @@ public class Car : MonoBehaviour
         BLeftWheel.brakeTorque = 100f;
     }
 
+    public Vector3 SeatPos()
+    {
+        return CarSeat.position;
+    }
+
     public void CarEnter(Transform passenger)
     {
         if (isEnter)
             return;
         CarActivate();
+        transform.tag = passenger.tag;
         passenger.parent = CarSeat;
         passenger.position = CarSeat.position;
         passenger.rotation = CarSeat.rotation;
         ObjectCtrl ctrl = passenger.GetComponent<ObjectCtrl>();
         ctrl.Enter();
-        passenger.GetComponent<CharacterController>().enabled = false;
+        if(eType == eCarType.Close)
+            passenger.GetComponent<CharacterController>().enabled = false;
         this.passenger = passenger;
         isEnter = true;
     }
@@ -158,11 +173,13 @@ public class Car : MonoBehaviour
         if (!isEnter)
             return;
         CarUnactivate();
+        transform.tag = "Car";
         passenger.parent = this.transform.parent;
         passenger.transform.position += new Vector3(-2,1,0);
         ObjectCtrl ctrl = passenger.GetComponent<ObjectCtrl>();
         ctrl.Exit();
-        passenger.GetComponent<CharacterController>().enabled = true;
+        if (eType == eCarType.Close)
+            passenger.GetComponent<CharacterController>().enabled = true;
         passenger = null;
         isEnter = false;
     }

@@ -23,12 +23,14 @@ public class CharacterCtrl : ObjectCtrl
     [SerializeField]
     protected GameObject Regdoll = null;
 
-    public int CurWeapon
+    public int CurWeapon {get{return nWeaponState;}}
+
+    protected override void Dead()
     {
-        get
-        {
-            return nWeaponState;
-        }
+        NPCGenerator.Instance.UnregNPC(gameObject);
+        Regdoll.transform.parent = transform.parent;
+        Regdoll.SetActive(true);
+        Destroy(gameObject, 0.01f);
     }
 
     public bool ChangeWeapon(int state)
@@ -79,6 +81,8 @@ public class CharacterCtrl : ObjectCtrl
 
     public void ViewCtrl(float angle, Quaternion ViewTargetRotation, Vector3 viewPointPos)
     {
+        if (isDead)
+            return;
         if (!Input.GetKey(KeyCode.LeftAlt))
         {
             transform.rotation = Quaternion.Lerp(transform.rotation , ViewTargetRotation, 24f*Time.deltaTime);
@@ -120,11 +124,14 @@ public class CharacterCtrl : ObjectCtrl
 
     public override void Enter()
     {
+        ChangeWeapon(0);
         AniCtrl.SetBool("isDrive", true);
+        CharCtrl.height = 1.0f;
     }
 
     public override void Exit()
     {
         AniCtrl.SetBool("isDrive", false);
+        CharCtrl.height = 1.9f;
     }
 }

@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bullet : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
     [SerializeField]
     public float fDamage = 20f;
     [SerializeField]
     private float fDrag = 0f;
+    [SerializeField]
+    private float fLifeTime = 10.0f;
 
     [SerializeField]
     private GameObject effect = null;
-
-    private bool isDead = false;
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        Destroy(gameObject, fLifeTime);
     }
     // Update is called once per frame
     void Update()
@@ -36,16 +37,12 @@ public class bullet : MonoBehaviour
     {
         if (collision.transform.tag == transform.tag)
             return;
-        if (isDead == false)
+        if (!(collision.transform.tag == "Untagged" || collision.transform.tag == "Terrain" || collision.transform.tag == "Item"))
         {
-            if(!(collision.transform.tag == "Default" || collision.transform.tag == "Terrain"))
-            {
-                collision.transform.GetComponent<ObjectCtrl>().GetDamage(fDamage);
-            }
-
-            Instantiate(effect, transform.position, transform.rotation);
-            isDead = true;
-            Destroy(this.gameObject, 0.001f);
+            collision.transform.GetComponent<ObjectCtrl>().GetDamage(fDamage);
         }
+
+        Instantiate(effect, transform.position, transform.rotation);
+        Destroy(this.gameObject, 0.001f);
     }
 }

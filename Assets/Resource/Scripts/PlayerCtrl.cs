@@ -37,7 +37,7 @@ public class PlayerCtrl : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if(CurCtrl == null)
         {
@@ -49,6 +49,12 @@ public class PlayerCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(CurCtrl == null && bTakeCar)
+        {
+            bTakeCar = false;
+            cameraInteraction.IsEnable = true;
+            ChangeCtrl(manTrans);
+        }
         CurCtrl.Ctrl(Input.GetAxis("Horizontal"),Input.GetAxis("Jump"), Input.GetAxis("Vertical"));
         
         CameraTarget.position = CurCtrl.transform.position;

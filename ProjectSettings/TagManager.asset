@@ -10,6 +10,7 @@ TagManager:
   - AI
   - Dead
   - Terrain
+  - Building
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - Bulding
   - Sensor
   - Car
-  - 
+  - Bullet
   - 
   - 
   - 

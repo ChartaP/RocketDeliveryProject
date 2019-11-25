@@ -41,17 +41,37 @@ public class Sensor : MonoBehaviour
         ViewPointUpdate();
     }
 
+    private bool isInCheckList(string tag)
+    {
+        return tag == "Car" || tag == "Player";
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        Debug.Log(other.name);
+        if(isInCheckList(other.tag))
         {
-            FindUnit.Add(other.gameObject);
+            if (other.GetComponent<ObjectCtrl>().ObjType == eObjectType.Unit)
+                FindUnit.Insert(0, other.gameObject);
+            else
+                FindUnit.Add(other.gameObject);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (!isInCheckList(other.tag))
+        {
+            if (FindUnit.Contains(other.gameObject))
+            {
+                FindUnit.Remove(other.gameObject);
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (isInCheckList(other.tag))
         {
             FindUnit.Remove(other.gameObject);
         }
@@ -66,8 +86,15 @@ public class Sensor : MonoBehaviour
             Vector3 EndPos = FindUnit[0].transform.position;
             EndPos.y = 0;
             transform.rotation = Quaternion.LookRotation(EndPos - StartPos, Vector3.up);
-
-            EyeTrans.LookAt(FindUnit[0].transform.position + new Vector3(0f,1.6f,0f), Vector3.up);
+            
+            if(FindUnit[0].GetComponent<ObjectCtrl>().ObjType== eObjectType.Unit)
+            {
+                EyeTrans.LookAt(FindUnit[0].transform.position + new Vector3(0f, FindUnit[0].transform.GetComponent<CharacterController>().height - 0.5f, 0f), Vector3.up);
+            }
+            else
+            {
+                EyeTrans.LookAt(FindUnit[0].GetComponent<Car>().SeatPos()+new Vector3(0f,1f,0f), Vector3.up);
+            }
             Debug.DrawRay(EyeTrans.position, EyeTrans.forward * fDistance, Color.green, 0.01f);
             Debug.DrawRay(RightSensor.position, RightSensor.forward * fDistance, Color.green, 0.01f);
             Debug.DrawRay(LeftSensor.position, LeftSensor.forward * fDistance, Color.green, 0.01f);
@@ -82,7 +109,7 @@ public class Sensor : MonoBehaviour
         if (Physics.Raycast(EyeTrans.position, EyeTrans.forward, out hit, Mathf.Infinity , mask))
         {
             viewPointPos = hit.point;
-            if (hit.transform.tag == "Player")
+            if (isInCheckList(hit.transform.tag ))
                 curTrans = hit.transform;
             else
                 curTrans = null;

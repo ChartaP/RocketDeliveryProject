@@ -11,7 +11,7 @@ public class CouponmanCtrl : CharacterCtrl
     // Start is called before the first frame update
     void Start()
     {
-        
+        fCurHP = fMaxHP;
         Punch.RegOwner(this);
         CharCtrl = transform.GetComponent<CharacterController>();
         Move_Dir = Vector3.zero;
@@ -21,13 +21,15 @@ public class CouponmanCtrl : CharacterCtrl
     // Update is called once per frame
     void Update()
     {
-
+        if (CurHP <= 0)
+        {
+            Dead();
+        }
     }
-
-    
-    
     public override void Ctrl(float X, float Y, float Z)
     {
+        if (isDead)
+            return;
         if (CharCtrl.isGrounded)
         {
             AniCtrl.SetBool("isGround", true);

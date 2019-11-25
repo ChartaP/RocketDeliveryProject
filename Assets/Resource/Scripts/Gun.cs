@@ -6,9 +6,7 @@ public class Gun : Weapon
 {
     [SerializeField]
     private float fRecoil = 1.0f;
-
-    [SerializeField]
-    private GameObject bullet = null;
+    
     [SerializeField]
     private GameObject effect = null;
     [SerializeField]
@@ -28,8 +26,8 @@ public class Gun : Weapon
         Instantiate(effect, startpoint.position, startpoint.rotation);
         GameObject temp = Instantiate(bullet, startpoint.position, startpoint.rotation, owner.transform.parent);
         temp.tag = transform.tag;
-        temp.GetComponent<bullet>().SetBullet(fDamage, fDrag);
-        temp.GetComponent<Rigidbody>().AddForce(startpoint.forward*10000f);
+        temp.GetComponent<Bullet>().SetBullet(fDamage, fDrag);
+        temp.GetComponent<Rigidbody>().AddForce(startpoint.forward*5000f);
         owner.gunAim.GetRecoil(fRecoil);
     }
 }
