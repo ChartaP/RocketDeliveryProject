@@ -84,42 +84,26 @@ public class Car : MonoBehaviour
     {
         if(curTrans == eTransmission.P)
         {
-            if (Mathf.Abs(fSpeed) > 0.1f)
-            {
-                BRightWheel.brakeTorque = 0;
-                BLeftWheel.brakeTorque = 0;
-                ChangeTrans(eTransmission.N);
-            }
+            ChangeTrans(eTransmission.N);
         }
         //CarRigidbody.AddForce(transform.up * -fSpeed *10f  );
         float Boost = 1f;
-        if (curTrans == eTransmission.N)
-        {
-            if (Mathf.Abs(fSpeed) > 0.1f && CarRigidbody.velocity.magnitude < 0.1f)
-            {
-                Boost = 100f;
-            }
-            else if (CarRigidbody.velocity.magnitude > 60f)
-            {
-                Boost = 0;
-            }
+        
 
-            BRightWheel.motorTorque = fSpeed * 15f * Boost;
-            BLeftWheel.motorTorque = fSpeed * 15f * Boost;
-        }
+        BRightWheel.motorTorque = fSpeed * 15f * Boost;
+        BLeftWheel.motorTorque = fSpeed * 15f * Boost;
     }
 
     public void Break(float fSpeed)
     {
-        if (curTrans == eTransmission.N)
+        if (CarRigidbody.velocity.magnitude > 1.0f)
         {
             BRightWheel.brakeTorque = fSpeed;
             BLeftWheel.brakeTorque = fSpeed;
         }
         else
         {
-            BRightWheel.brakeTorque = 1000f;
-            BLeftWheel.brakeTorque = 1000f;
+            curTrans = eTransmission.P;
         }
     }
 
