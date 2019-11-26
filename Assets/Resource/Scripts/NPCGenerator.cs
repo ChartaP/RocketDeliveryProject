@@ -5,8 +5,7 @@ using UnityEngine;
 public class NPCGenerator : MonoBehaviour
 {
     private static NPCGenerator instance = null;
-    [SerializeField]
-    private Transform ObjectTrans = null;
+    public Transform ObjectTrans = null;
     [SerializeField]
     private List<GameObject> NPC_List = new List<GameObject>();
     [SerializeField]

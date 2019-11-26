@@ -17,12 +17,15 @@ public class Gun : Weapon
 
     [SerializeField]
     private int curCharge = 0;
+    
 
     // Start is called before the first frame update
 
     protected override void Fire(Animator Anim)
     {
         Anim.SetTrigger("WeaponFire");
+        weaponAudio.clip = triggerSound;
+        weaponAudio.Play();
         Instantiate(effect, startpoint.position, startpoint.rotation);
         GameObject temp = Instantiate(bullet, startpoint.position, startpoint.rotation, owner.transform.parent);
         temp.tag = transform.tag;
@@ -30,4 +33,5 @@ public class Gun : Weapon
         temp.GetComponent<Rigidbody>().AddForce(startpoint.forward*5000f);
         owner.gunAim.GetRecoil(fRecoil);
     }
+    
 }

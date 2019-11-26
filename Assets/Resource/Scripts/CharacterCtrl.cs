@@ -27,6 +27,11 @@ public class CharacterCtrl : ObjectCtrl
 
     protected override void Dead()
     {
+        isDead = true;
+        if(nWeaponState != 0)
+        {
+            weaponList[0].GetComponent<Weapon>().DropItem(transform);
+        }
         NPCGenerator.Instance.UnregNPC(gameObject);
         Regdoll.transform.parent = transform.parent;
         Regdoll.SetActive(true);

@@ -11,6 +11,8 @@ TagManager:
   - Dead
   - Terrain
   - Building
+  - Regdoll
+  - Sensor
   layers:
   - Default
   - TransparentFX
@@ -27,7 +29,7 @@ TagManager:
   - Sensor
   - Car
   - Bullet
-  - 
+  - Regdoll
   - 
   - 
   - 

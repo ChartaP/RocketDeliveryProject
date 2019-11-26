@@ -34,6 +34,7 @@ public class CarCtrl : ObjectCtrl
 
     protected override void Dead()
     {
+        isDead = true;
         Instantiate(DestroyEffect, transform.position,transform.rotation).transform.localScale = new Vector3(fEffectSize, fEffectSize, fEffectSize);
 
         this.Car.CarExit();
@@ -52,7 +53,7 @@ public class CarCtrl : ObjectCtrl
 
         Car.Break(Y * fSpeed );
 
-        Car.Handle(X );
+        Car.Steering(X );
 
         //CharCtrl.Move(Move_Dir * Time.deltaTime);
     }
@@ -64,4 +65,6 @@ public class CarCtrl : ObjectCtrl
     public override void Exit()
     {
     }
+
+    
 }

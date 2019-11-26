@@ -26,6 +26,22 @@ public class CouponmanCtrl : CharacterCtrl
             Dead();
         }
     }
+
+    protected override void Dead()
+    {
+        isDead = true;
+        if (nWeaponState != 0)
+        {
+            weaponList[0].GetComponent<Weapon>().DropItem(transform);
+        }
+        NPCGenerator.Instance.UnregNPC(gameObject);
+        Regdoll.transform.parent = transform.parent;
+        Regdoll.SetActive(true);
+        PlayerCtrl.Instance.manTrans = Regdoll.transform;
+        Destroy(gameObject, 0.01f);
+    }
+
+
     public override void Ctrl(float X, float Y, float Z)
     {
         if (isDead)

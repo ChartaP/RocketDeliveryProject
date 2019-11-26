@@ -43,7 +43,7 @@ public class Sensor : MonoBehaviour
 
     private bool isInCheckList(string tag)
     {
-        return tag == "Car" || tag == "Player";
+        return tag == "Player";
     }
 
     private void OnTriggerEnter(Collider other)

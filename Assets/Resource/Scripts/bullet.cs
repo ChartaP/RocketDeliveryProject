@@ -37,7 +37,7 @@ public class Bullet : MonoBehaviour
     {
         if (collision.transform.tag == transform.tag)
             return;
-        if (!(collision.transform.tag == "Untagged" || collision.transform.tag == "Terrain" || collision.transform.tag == "Item"))
+        if (!(collision.transform.tag == "Untagged" || collision.transform.tag == "Terrain" || collision.transform.tag == "Item" || collision.transform.tag == "Regdoll"))
         {
             collision.transform.GetComponent<ObjectCtrl>().GetDamage(fDamage);
         }

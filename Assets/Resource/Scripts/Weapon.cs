@@ -27,6 +27,14 @@ public class Weapon : MonoBehaviour
 
     [SerializeField]
     protected CharacterCtrl owner;
+
+    [SerializeField]
+    protected GameObject itemPrefab = null;
+
+    [SerializeField]
+    protected AudioSource weaponAudio = null;
+    [SerializeField]
+    protected AudioClip triggerSound = null;
     
     public virtual void RegOwner(CharacterCtrl owner)
     {
@@ -67,6 +75,8 @@ public class Weapon : MonoBehaviour
     protected virtual void Fire(Animator Anim)
     {
         Anim.SetTrigger("WeaponFire");
+        weaponAudio.clip = triggerSound;
+        weaponAudio.Play();
         GameObject temp = Instantiate(bullet, startpoint.position, startpoint.rotation, owner.transform.parent);
         temp.tag = owner.tag;
         temp.GetComponent<Bullet>().SetBullet(fDamage, 1);
@@ -85,5 +95,12 @@ public class Weapon : MonoBehaviour
             }
         }
         return false;
+    }
+    public void DropItem(Transform pos)
+    {
+        if(itemPrefab != null)
+        {
+            Instantiate(itemPrefab, pos.position, pos.rotation, NPCGenerator.Instance.ObjectTrans);
+        }
     }
 }

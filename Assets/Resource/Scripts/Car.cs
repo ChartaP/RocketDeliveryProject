@@ -33,6 +33,7 @@ public class Car : MonoBehaviour
     private List<Transform> WheelMesh = new List<Transform>();
     [SerializeField]
     private eCarType eType = eCarType.Close;
+    
 
     enum eTransmission
     {
@@ -83,27 +84,46 @@ public class Car : MonoBehaviour
     {
         if(curTrans == eTransmission.P)
         {
-            ChangeTrans(eTransmission.N);
+            if (Mathf.Abs(fSpeed) > 0.1f)
+            {
+                BRightWheel.brakeTorque = 0;
+                BLeftWheel.brakeTorque = 0;
+                ChangeTrans(eTransmission.N);
+            }
         }
         //CarRigidbody.AddForce(transform.up * -fSpeed *10f  );
-        BRightWheel.motorTorque = fSpeed *15;
-        BLeftWheel.motorTorque = fSpeed * 15;
+        float Boost = 1f;
+        if (curTrans == eTransmission.N)
+        {
+            if (Mathf.Abs(fSpeed) > 0.1f && CarRigidbody.velocity.magnitude < 0.1f)
+            {
+                Boost = 100f;
+            }
+            else if (CarRigidbody.velocity.magnitude > 60f)
+            {
+                Boost = 0;
+            }
+
+            BRightWheel.motorTorque = fSpeed * 15f * Boost;
+            BLeftWheel.motorTorque = fSpeed * 15f * Boost;
+        }
     }
 
     public void Break(float fSpeed)
     {
-        if (CarRigidbody.velocity.z > 0.1f || CarRigidbody.velocity.z < -0.1f)
+        if (curTrans == eTransmission.N)
         {
             BRightWheel.brakeTorque = fSpeed;
             BLeftWheel.brakeTorque = fSpeed;
         }
         else
         {
-            ChangeTrans(eTransmission.P);
+            BRightWheel.brakeTorque = 1000f;
+            BLeftWheel.brakeTorque = 1000f;
         }
     }
 
-    public void Handle(float fDir)
+    public void Steering(float fDir)
     {
         FRightWheel.steerAngle = fDir * 40;
         FLeftWheel.steerAngle = fDir * 40;
@@ -182,5 +202,16 @@ public class Car : MonoBehaviour
             passenger.GetComponent<CharacterController>().enabled = true;
         passenger = null;
         isEnter = false;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.tag == transform.tag)
+            return;
+        if (!(collision.transform.tag == "Untagged" || collision.transform.tag == "Sensor" || collision.transform.tag == "Terrain" || collision.transform.tag == "Item" || collision.transform.tag == "Regdoll"))
+        {
+            collision.transform.GetComponent<ObjectCtrl>().GetDamage(CarRigidbody.velocity.magnitude * 1000f);
+        }
+        
     }
 }
