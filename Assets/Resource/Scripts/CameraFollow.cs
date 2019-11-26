@@ -29,11 +29,11 @@ public class CameraFollow : MonoBehaviour
         MainCamera.transform.position = target.position;
         //target.Rotate(Vector3.right, Input.GetAxis("Mouse Y") * 1.0f);
         MainCamera.transform.position += new Vector3(0, CameraPos.y, 0);
-        MainCamera.transform.position -= Quaternion.Euler(Y_Dir, target.eulerAngles.y, 0) * Vector3.forward * CameraPos.z ;
-        
+        MainCamera.transform.position -= Quaternion.Euler(Y_Dir, target.eulerAngles.y, 0) * Vector3.forward * CameraPos.z;
+
         //MainCamera.transform.LookAt(target.position);
 
-        Y_Dir -= Input.GetAxis("Mouse Y");
+        Y_Dir -= Input.GetAxis("Mouse Y") * Time.deltaTime * 60f;
         X_Dir = target.eulerAngles.y;
         MainCamera.transform.rotation = Quaternion.Euler(Y_Dir, X_Dir, 0);
 

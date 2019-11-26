@@ -657,7 +657,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fSpeed: 1500
   fJump: 1500
-  fMaxHP: 4000
+  fMaxHP: 800
   cameraHeight: 4
   cameraDistance: 5
   eObjType: 0

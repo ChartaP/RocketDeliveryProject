@@ -61,7 +61,7 @@ MonoBehaviour:
   fDamage: 20
   fDrag: 0
   fLifeTime: 0.3
-  effect: {fileID: 100000, guid: f06e78284f831ae469c74624ab5d513b, type: 3}
+  effect: {fileID: 1462327970484030, guid: f01c1eba69de19e44b04d8d651aaac37, type: 3}
 --- !u!54 &-5608115705232678080
 Rigidbody:
   m_ObjectHideFlags: 0

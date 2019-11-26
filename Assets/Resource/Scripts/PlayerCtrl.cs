@@ -58,7 +58,7 @@ public class PlayerCtrl : MonoBehaviour
         CurCtrl.Ctrl(Input.GetAxis("Horizontal"),Input.GetAxis("Jump"), Input.GetAxis("Vertical"));
         
         CameraTarget.position = CurCtrl.transform.position;
-        CameraTarget.Rotate(Vector3.up * Input.GetAxis("Mouse X"));
+        CameraTarget.Rotate(Vector3.up * Input.GetAxis("Mouse X") *Time.deltaTime * 60f);
         if (bTakeCar)
         {
             if (Input.GetKeyDown(KeyCode.F))

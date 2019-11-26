@@ -90,7 +90,7 @@ public class CharacterCtrl : ObjectCtrl
             return;
         if (!Input.GetKey(KeyCode.LeftAlt))
         {
-            transform.rotation = Quaternion.Lerp(transform.rotation , ViewTargetRotation, 24f*Time.deltaTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation , ViewTargetRotation, 24f * Time.deltaTime);
             
             Neck.LookAt(viewPointPos);
             gunAim.GetViewPointPos(viewPointPos);
@@ -98,7 +98,7 @@ public class CharacterCtrl : ObjectCtrl
         }
     }
 
-    public void GetItem(DropItem item)
+    public virtual void GetItem(DropItem item)
     {
         AniCtrl.SetTrigger("Pick");
         eItem itemNum;

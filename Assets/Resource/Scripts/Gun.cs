@@ -24,8 +24,6 @@ public class Gun : Weapon
     protected override void Fire(Animator Anim)
     {
         Anim.SetTrigger("WeaponFire");
-        weaponAudio.clip = triggerSound;
-        weaponAudio.Play();
         Instantiate(effect, startpoint.position, startpoint.rotation);
         GameObject temp = Instantiate(bullet, startpoint.position, startpoint.rotation, owner.transform.parent);
         temp.tag = transform.tag;

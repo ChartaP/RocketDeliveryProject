@@ -40,11 +40,15 @@ public class CameraInteraction : MonoBehaviour
             }
         }
     }
-    // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
         if (MainCamera == null)
         {
             MainCamera = Camera.main;

@@ -31,7 +31,6 @@ public class Bullet : MonoBehaviour
         fDamage = damage;
         fDrag = drag;
         transform.GetComponent<Rigidbody>().drag = fDrag;
-
     }
     private void OnCollisionEnter(Collision collision)
     {

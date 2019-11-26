@@ -5,8 +5,7 @@ using UnityEngine;
 public class CouponmanCtrl : CharacterCtrl
 {
     
-    [SerializeField]
-    private Transform bagTrans;
+    public Bag myBag;
     
     // Start is called before the first frame update
     void Start()
@@ -41,6 +40,23 @@ public class CouponmanCtrl : CharacterCtrl
         Destroy(gameObject, 0.01f);
     }
 
+    public override void GetItem(DropItem item)
+    {
+        AniCtrl.SetTrigger("Pick");
+        eItem itemNum;
+        GameObject prefab;
+        item.Pick(out prefab, out itemNum);
+        if ((int)itemNum / 10 == 2)
+        {
+            switch (itemNum)
+            {
+                case eItem.AKM:
+                    weaponList[0] = prefab;
+                    ItemDropInspector.Instance.ItemDrop("Assault Rifle - AKM");
+                    break;
+            }
+        }
+    }
 
     public override void Ctrl(float X, float Y, float Z)
     {
