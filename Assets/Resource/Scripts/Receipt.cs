@@ -43,13 +43,7 @@ public class Receipt : MonoBehaviour
 
         StartCoroutine("ReceiptVisual");
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    
     IEnumerator ReceiptVisual()
     {
         myAudio.clip = Fisrt;

@@ -28,6 +28,8 @@ public class CouponmanCtrl : CharacterCtrl
 
     protected override void Dead()
     {
+        if (isDead)
+            return;
         isDead = true;
         if (nWeaponState != 0)
         {
@@ -38,6 +40,7 @@ public class CouponmanCtrl : CharacterCtrl
         Regdoll.SetActive(true);
         PlayerCtrl.Instance.manTrans = Regdoll.transform;
         Destroy(gameObject, 0.01f);
+        Order.Instance.GameOver();
     }
 
     public override void GetItem(DropItem item)
@@ -51,7 +54,15 @@ public class CouponmanCtrl : CharacterCtrl
             switch (itemNum)
             {
                 case eItem.AKM:
-                    weaponList[0] = Instantiate( prefab,RHand).transform;
+                    if (weaponList[0] == null)
+                    {
+                        weaponList[0] = Instantiate(prefab, RHand).transform;
+                    }
+                    else
+                    {
+                        Destroy(weaponList[0].gameObject);
+                        weaponList[0] = Instantiate(prefab, RHand).transform;
+                    }
                     weaponList[0].gameObject.SetActive(false);
                     ItemDropInspector.Instance.ItemDrop("Assault Rifle - AKM");
                     break;
@@ -90,5 +101,20 @@ public class CouponmanCtrl : CharacterCtrl
         CharCtrl.Move(Move_Dir * Time.deltaTime);
     }
 
-    
+    public void GetChargeState(out string curCharge, out string maxCharge)
+    {
+        int cur=0;
+        int max=0;
+        if(nWeaponState == 0)
+        {
+            curCharge = "∞";
+            maxCharge = "∞";
+        }
+        else
+        {
+            equipWeapon.GetComponent<Weapon>().GetChargeState(out cur,out max);
+            curCharge = cur.ToString();
+            maxCharge = max.ToString();
+        }
+    }
 }

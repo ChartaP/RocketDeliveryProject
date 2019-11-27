@@ -33,7 +33,10 @@ public class ObjectCtrl : MonoBehaviour
     {
 
     }
-
+    public virtual int GetSpeed()
+    {
+        return 0;
+    }
     public virtual void Ctrl(float X,float Y,float Z)
     {
     }
@@ -53,12 +56,12 @@ public class ObjectCtrl : MonoBehaviour
         fCurHP = fCurHP - fDamage <= 0 ? 0 : fCurHP - fDamage;
     }
 
-    public float MaxHP
+    public int MaxHP
     {
-        get{return fMaxHP;}
+        get{return (int)fMaxHP;}
     }
 
-    public float CurHP
-    { get{ return fCurHP;}
+    public int CurHP
+    { get{ return (int)fCurHP;}
     }
 }

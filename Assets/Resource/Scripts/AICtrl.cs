@@ -41,6 +41,8 @@ public class AICtrl : MonoBehaviour
         GameObject target = null;
         if(mySensor.FindedUnit(out target))
         {
+            if (target == null)
+                return;
             if(Vector3.Distance(transform.position,target.transform.position) > AtkRange)
             {
                 if ((CurCtrl as CharacterCtrl).CurWeapon != 0)
@@ -51,8 +53,13 @@ public class AICtrl : MonoBehaviour
             {
                 if ((CurCtrl as CharacterCtrl).CurWeapon != 1)
                     (CurCtrl as CharacterCtrl).ChangeWeapon(1);
-                if((CurCtrl as CharacterCtrl).IsWeaponAim(target))
-                    (CurCtrl as CharacterCtrl).TriggerWeapon(true);
+                if ((CurCtrl as CharacterCtrl).IsWeaponAim(target))
+                {
+                    if ((CurCtrl as CharacterCtrl).IsWeaponStandBy())
+                        (CurCtrl as CharacterCtrl).TriggerWeapon(true);
+                    else
+                        (CurCtrl as CharacterCtrl).ReloadWeapon();
+                }
                 else
                     (CurCtrl as CharacterCtrl).TriggerWeapon(false);
             }

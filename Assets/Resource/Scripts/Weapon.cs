@@ -80,7 +80,11 @@ public class Weapon : MonoBehaviour
     {
         return true;
     }
-
+    public virtual void GetChargeState(out int curCharge, out int maxCharge)
+    {
+        curCharge = 0;
+        maxCharge = 0;
+    }
     public virtual bool IsStandBy()
     {
         return true;

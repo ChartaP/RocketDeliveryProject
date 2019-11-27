@@ -37,6 +37,7 @@ public class Sensor : MonoBehaviour
     }
     private void Update()
     {
+        FindUnit.RemoveAll(GameObject => GameObject == null);
         FocusEye();
         ViewPointUpdate();
     }
@@ -66,6 +67,7 @@ public class Sensor : MonoBehaviour
             {
                 FindUnit.Remove(other.gameObject);
             }
+            
         }
     }
 

@@ -8,6 +8,15 @@ public enum eCarType
     Open = 1
 }
 
+public enum eSpeed {
+    Idle = 0,
+    Low = 1,
+    Med = 2,
+    High = 3,
+    Max = 4
+}
+
+
 public class Car : MonoBehaviour
 {
     [SerializeField]
@@ -28,12 +37,20 @@ public class Car : MonoBehaviour
     [SerializeField]
     private Transform passenger= null;
 
+    [SerializeField]
+    private AudioClip[] EngineSounds;
+    [SerializeField]
+    private AudioSource CarAudio;
+
 
     [SerializeField]
     private List<Transform> WheelMesh = new List<Transform>();
     [SerializeField]
     private eCarType eType = eCarType.Close;
     
+    private float Speed;
+
+    private bool isAccel = false;
 
     enum eTransmission
     {
@@ -55,7 +72,7 @@ public class Car : MonoBehaviour
         }
         curTrans = eTransmission.P;
         CarUnactivate();
-
+        StartCoroutine("SpeedUpdate");
     }
 
     // Update is called once per frame
@@ -80,11 +97,40 @@ public class Car : MonoBehaviour
         }
     }
 
+    IEnumerator EngineSound()
+    {
+        CarAudio.clip = EngineSounds[0];
+        CarAudio.Play();
+        eSpeed SpeedState = eSpeed.Idle;
+        while(CarAudio.isPlaying)
+        {
+            yield return null;
+        }
+        while (true)
+        {
+            if (Speed < 2)
+            {
+                SpeedState = eSpeed.Idle;
+            }
+            else
+            {
+
+            }
+            yield return null;
+        }
+
+        yield break;
+    }
+
     public void Accel(float fSpeed)
     {
-        if(curTrans == eTransmission.P)
+        isAccel = fSpeed > 0.1f;
+        if (curTrans == eTransmission.P && fSpeed > 0.1f)
         {
+            BRightWheel.brakeTorque = 0;
+            BLeftWheel.brakeTorque = 0;
             ChangeTrans(eTransmission.N);
+            StartCoroutine("EngineSound");
         }
         //CarRigidbody.AddForce(transform.up * -fSpeed *10f  );
         float Boost = 1f;
@@ -104,6 +150,7 @@ public class Car : MonoBehaviour
         else
         {
             curTrans = eTransmission.P;
+            StopCoroutine("EngineSound");
         }
     }
 
@@ -111,6 +158,28 @@ public class Car : MonoBehaviour
     {
         FRightWheel.steerAngle = fDir * 40;
         FLeftWheel.steerAngle = fDir * 40;
+    }
+
+    private IEnumerator SpeedUpdate()
+    {
+        Vector3 curPos = transform.position;
+        curPos.y = 0;
+        Vector3 prePos = curPos;
+        while (true)
+        {
+            yield return new WaitForSeconds(0.2f);
+            curPos = transform.position;
+            curPos.y = 0;
+            Speed =Vector3.Distance(prePos, curPos) * 360*5  / 100 ;
+            if (curTrans == eTransmission.P)
+                Speed = 0;
+            prePos = curPos;
+        }
+        yield break;
+    }
+    public int GetSpeed()
+    {
+        return (int)(Speed);
     }
 
     private void ChangeTrans(eTransmission eTrans)
@@ -179,7 +248,7 @@ public class Car : MonoBehaviour
         CarUnactivate();
         transform.tag = "Car";
         passenger.parent = this.transform.parent;
-        passenger.transform.position += new Vector3(-2,1,0);
+        passenger.transform.position = transform.position + (Vector3.right *- 2f)+ (Vector3.up * 2f);
         ObjectCtrl ctrl = passenger.GetComponent<ObjectCtrl>();
         ctrl.Exit();
         if (eType == eCarType.Close)
@@ -194,7 +263,7 @@ public class Car : MonoBehaviour
             return;
         if (!(collision.transform.tag == "Untagged" || collision.transform.tag == "Sensor" || collision.transform.tag == "Terrain" || collision.transform.tag == "Item" || collision.transform.tag == "Regdoll"))
         {
-            collision.transform.GetComponent<ObjectCtrl>().GetDamage(CarRigidbody.velocity.magnitude * 1000f);
+            collision.transform.GetComponent<ObjectCtrl>().GetDamage((Speed>20f?Speed:0) * 4 );
         }
         
     }

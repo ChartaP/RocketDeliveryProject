@@ -64,9 +64,16 @@ public class NPCGenerator : MonoBehaviour
             OriginPos = PlayerCtrl.Instance.CurTrans.position;
             RandomPos.y = 600f;
             RandomPos.x = Random.Range(OriginPos.x - generateRange.x, OriginPos.x + generateRange.x);
-            RandomPos.x += (RandomPos.x > OriginPos.x ? 30f : -30f);
+
             RandomPos.z = Random.Range(OriginPos.z - generateRange.z, OriginPos.z + generateRange.z);
-            RandomPos.z += (RandomPos.z > OriginPos.z ? 30f : -30f);
+            if ( Mathf.Abs( RandomPos.x) < 50f)
+            {
+                RandomPos.z += (RandomPos.z > OriginPos.z ? 50f : -50f);
+            }
+            else if(Mathf.Abs(RandomPos.z) < 50f)
+            {
+                RandomPos.x += (RandomPos.z > OriginPos.z ? 50f : -50f);
+            }
 
             if (Physics.BoxCast(RandomPos,new Vector3(1f,1f,1f),Vector3.down,out hit, transform.rotation, 800f))
             {

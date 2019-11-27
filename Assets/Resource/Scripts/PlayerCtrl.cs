@@ -29,11 +29,22 @@ public class PlayerCtrl : MonoBehaviour
 
     private void OnGUI()
     {
+        if (CurTrans == null)
+            return;
         GUIStyle style = new GUIStyle();
         style.fontSize = 24;
         style.normal.textColor = Color.white;
 
+        if (bTakeCar)
+        {
+            GUI.Label(new Rect(32, Screen.height - 64, 128, 32), CurCtrl.GetSpeed()+"Km/h", style);
+        }
         GUI.Label(new Rect(32,Screen.height -32, 128, 32), "HP:"+manTrans.GetComponent<ObjectCtrl>().CurHP+"/"+manTrans.GetComponent<ObjectCtrl>().MaxHP, style);
+        string cur;
+        string max;
+        manTrans.GetComponent<CouponmanCtrl>().GetChargeState(out cur,out max);
+        GUI.Label(new Rect(Screen.width - 64, Screen.height - 32, 64, 32), cur + "/" + max, style);
+
     }
 
     // Start is called before the first frame update
@@ -49,6 +60,8 @@ public class PlayerCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (CurTrans == null)
+            return;
         if(CurCtrl == null && bTakeCar)
         {
             bTakeCar = false;

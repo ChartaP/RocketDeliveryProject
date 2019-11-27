@@ -27,6 +27,8 @@ public class CharacterCtrl : ObjectCtrl
 
     protected override void Dead()
     {
+        if (isDead)
+            return;
         isDead = true;
         if(nWeaponState != 0)
         {
@@ -52,7 +54,8 @@ public class CharacterCtrl : ObjectCtrl
 
     public bool ChangeWeapon(int state)
     {
-        
+        if (state == nWeaponState)
+            return false;
         if (weaponList.Length < state)
             return false;
         if (state != 0)
@@ -65,8 +68,6 @@ public class CharacterCtrl : ObjectCtrl
         }
         
         TriggerWeapon(false);
-        if (equipWeapon != null)
-            Destroy(equipWeapon);
         nWeaponState = state;
         AniCtrl.SetInteger("nWeaponState", state);
         if (state != 0)
@@ -149,6 +150,8 @@ public class CharacterCtrl : ObjectCtrl
 
     public bool IsWeaponAim(GameObject target)
     {
+        if (target == null)
+            return false;
         if (nWeaponState == 0)
         {
             return Punch.IsAim(target);

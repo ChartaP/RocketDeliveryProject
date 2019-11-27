@@ -20,6 +20,8 @@ public class Building : MonoBehaviour
     [SerializeField]
     private bool isActive = false;
 
+    private Color myColor = Color.white;
+
     private Transform Goods = null;
 
     private float fTimer = 0f;
@@ -41,21 +43,21 @@ public class Building : MonoBehaviour
         }
     }
     
-    public void SetFromPoint(Transform Goods)
+    public void SetFromPoint(Transform Goods, Color iconColor)
     {
         this.Goods = Goods;
         myState = BuildingState.FROM;
-        Activation();
+        Activation(iconColor);
     }
 
-    public void SetToPoint(Transform Goods)
+    public void SetToPoint(Transform Goods, Color iconColor)
     {
         this.Goods = Goods;
         myState = BuildingState.TO;
-        Activation();
+        Activation(iconColor);
     }
 
-    public void Activation()
+    public void Activation(Color iconColor)
     {
         isActive = true;
         fTimer = 0f;
@@ -70,21 +72,8 @@ public class Building : MonoBehaviour
                 StateMark.GetComponent<SpriteRenderer>().sprite = ToSprite;
                 break;
         }
-        Color color = Color.white;
-        int n = (Goods.GetComponent<Goods>().ID % 3);
-        switch (n)
-        {
-            case 0:
-                color = Color.magenta;
-                break;
-            case 1:
-                color = Color.green;
-                break;
-            case 2:
-                color = Color.cyan;
-                break;
-        }
-        StateMark.GetComponent<SpriteRenderer>().color = color;
+        myColor = iconColor;
+        StateMark.GetComponent<SpriteRenderer>().color = myColor;
     }
 
     public void Inactive()
@@ -136,6 +125,7 @@ public class Building : MonoBehaviour
             Inactive();
             Order.Instance.CompleteOrder(temp.GetComponent<Goods>().ID.ToString(),fTimer);
             Destroy(temp.gameObject, 0.1f);
+            Order.Instance.ReturnIconColor(myColor);
         }
     }
 }

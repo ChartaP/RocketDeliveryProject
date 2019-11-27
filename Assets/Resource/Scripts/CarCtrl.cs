@@ -32,6 +32,11 @@ public class CarCtrl : ObjectCtrl
         }
     }
 
+    public override int GetSpeed()
+    {
+        return Car.GetSpeed();
+    }
+
     protected override void Dead()
     {
         isDead = true;

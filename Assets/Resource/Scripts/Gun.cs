@@ -50,8 +50,21 @@ public class Gun : Weapon
 
     public override bool Reload(Animator Anim)
     {
-        StartCoroutine("Reloading",Anim);
-        return true;
+        if (curCharge != nCharge)
+        {
+            StartCoroutine("Reloading", Anim);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public override void GetChargeState(out int curCharge,out int maxCharge)
+    {
+        curCharge = this.curCharge;
+        maxCharge = this.nCharge;
     }
     public override bool IsStandBy()
     {

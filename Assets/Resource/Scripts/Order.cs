@@ -25,12 +25,16 @@ public class Order : MonoBehaviour
     private Transform ReceiptTrans;
     [SerializeField]
     private GameObject ReceiptPrefab;
-
+    [SerializeField]
+    private GameObject GameoverPrefab;
     [SerializeField]
     private int nOrderStack = 0;
 
     public GameObject GoodsPrefab = null;
 
+    [SerializeField]
+    private List<Color> IconColorList;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +44,7 @@ public class Order : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(nOrderStack < 1)
+        if(nOrderStack < 3)
         {
             OrderBuilding();
         }
@@ -51,9 +55,11 @@ public class Order : MonoBehaviour
         Building From = null;
         Building To = null;
         GameObject Goods = null;
+        Color IconColor = Color.white;
         if (BuildingList.Count-(nOrderStack*2) < 2)
             return false;
         Goods = IssueGoods();
+        IconColor = GetIconColor();
         int randNum = Random.Range(0, BuildingList.Count);
         for (int n = 0; n <  BuildingList.Count; n++  )
         {
@@ -62,11 +68,13 @@ public class Order : MonoBehaviour
                 continue;
             else
             {
-                BuildingList[index].SetFromPoint(Goods.transform);
+                BuildingList[index].SetFromPoint(Goods.transform, IconColor);
                 From = BuildingList[index];
                 break;
             }
         }
+        if (From == null)
+            return false;
         randNum = Random.Range(0, BuildingList.Count);
         for (int n = 0; n < BuildingList.Count; n++)
         {
@@ -75,11 +83,13 @@ public class Order : MonoBehaviour
                 continue;
             else
             {
-                BuildingList[index].SetToPoint(Goods.transform);
+                BuildingList[index].SetToPoint(Goods.transform, IconColor);
                 To = BuildingList[index];
                 break;
             }
         }
+        if (To == null)
+            return false;
         if (From != null && To != null)
         {
             nOrderStack++;
@@ -105,5 +115,20 @@ public class Order : MonoBehaviour
         nOrderStack--;
     }
 
+    public void GameOver()
+    {
+        Instantiate(GameoverPrefab, ReceiptTrans);
+    }
 
+    public Color GetIconColor()
+    {
+        Color tmp = IconColorList[0];
+        IconColorList.RemoveAt(0);
+        return tmp;
+    }
+
+    public void ReturnIconColor(Color returnColor)
+    {
+        IconColorList.Add(returnColor);
+    }
 }
