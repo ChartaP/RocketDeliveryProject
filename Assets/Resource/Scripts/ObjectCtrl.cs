@@ -56,6 +56,10 @@ public class ObjectCtrl : MonoBehaviour
         fCurHP = fCurHP - fDamage <= 0 ? 0 : fCurHP - fDamage;
     }
 
+    public virtual void RegainHP(float fHeal){
+        fCurHP = fCurHP + fHeal >= 100 ? 100 : fCurHP + fHeal;
+    }
+
     public int MaxHP
     {
         get{return (int)fMaxHP;}

@@ -20,6 +20,9 @@ public class DropItem : MonoBehaviour
     [SerializeField]
     private GameObject equipPrefab = null;
 
+    [SerializeField]
+    private AudioClip PickSound = null;
+
 
     private void Update()
     {
@@ -40,6 +43,7 @@ public class DropItem : MonoBehaviour
     {
         prefab = equipPrefab;
         num = eItemNum;
+        AudioSource.PlayClipAtPoint(PickSound, transform.position);
         Destroy(transform.gameObject, 0.01f);
         return true;
     }

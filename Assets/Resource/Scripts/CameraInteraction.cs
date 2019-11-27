@@ -131,7 +131,7 @@ public class CameraInteraction : MonoBehaviour
 
     private bool isInteractable(string tag)
     {
-        return tag == "Car" || tag == "Item";
+        return tag == "Car" || tag == "Item" || tag == "Vending";
     }
 
     public void Interact()
@@ -145,6 +145,9 @@ public class CameraInteraction : MonoBehaviour
                     break;
                 case "Item":
                     PlayerCtrl.Instance.GetItem(curHit);
+                    break;
+                case "Vending":
+                    PlayerCtrl.Instance.Purchase(curHit);
                     break;
                 default:
                     break;

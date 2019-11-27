@@ -114,7 +114,7 @@ public class Car : MonoBehaviour
         CarAudio.Play();
         while (isEnter)
         {
-            if (Speed < 2)
+            if (Speed < 5)
             {
                 SpeedState = eSpeed.Idle;
             }
@@ -310,6 +310,7 @@ public class Car : MonoBehaviour
         passenger.parent = this.transform.parent;
         passenger.transform.position = transform.position + (Vector3.right *- 2f)+ (Vector3.up * 2f);
         ObjectCtrl ctrl = passenger.GetComponent<ObjectCtrl>();
+        isAccel = false;
         ctrl.Exit();
         if (eType == eCarType.Close)
             passenger.GetComponent<CharacterController>().enabled = true;
@@ -321,9 +322,11 @@ public class Car : MonoBehaviour
     {
         if (collision.transform.tag == transform.tag)
             return;
-        if (collision.transform.tag == "Player" || collision.transform.tag == "Enemy" || collision.transform.tag == "Car")
+        if (collision.transform.tag == "Player" || collision.transform.tag == "AI" || collision.transform.tag == "Car")
         {
-            collision.transform.GetComponent<ObjectCtrl>().GetDamage((Speed>20f?Speed:0) * 4 );
+            Debug.Log(collision.transform.name);
+            if(collision.gameObject.layer != 14)
+                collision.transform.GetComponent<ObjectCtrl>().GetDamage((Speed>20f?Speed:0) * 5 );
         }
         
     }

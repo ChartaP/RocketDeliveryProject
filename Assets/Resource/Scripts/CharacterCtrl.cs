@@ -25,8 +25,11 @@ public class CharacterCtrl : ObjectCtrl
     [SerializeField]
     protected AudioClip[] StepSound;
     [SerializeField]
-    protected AudioSource CharAudio;
-
+    protected AudioClip[] VoiceSound;
+    [SerializeField]
+    protected AudioSource VoiceAudio;
+    [SerializeField]
+    protected AudioSource FootAudio; 
 
     public int CurWeapon {get{return nWeaponState;}}
 
@@ -39,6 +42,7 @@ public class CharacterCtrl : ObjectCtrl
         {
             weaponList[0].GetComponent<Weapon>().DropItem(transform);
         }
+        Voice(3, true);
         NPCGenerator.Instance.UnregNPC(gameObject);
         Regdoll.transform.parent = transform.parent;
         Regdoll.SetActive(true);
@@ -121,6 +125,31 @@ public class CharacterCtrl : ObjectCtrl
         }
     }
 
+    public void Voice(int n,bool isPos = false)
+    {
+        if (isPos)
+        {
+            if (!VoiceAudio.isPlaying)
+            {
+                VoiceAudio.clip = VoiceSound[n];
+                VoiceAudio.Play();
+            }
+        }
+        else
+        {
+            AudioSource.PlayClipAtPoint(VoiceSound[n], VoiceAudio.transform.position);
+        }
+    }
+
+    protected void PlayStepSound()
+    {
+        if (FootAudio.isPlaying == false)
+        {
+            FootAudio.clip = StepSound[Random.Range(0, 4)];
+            FootAudio.Play();
+        }
+    }
+
     public void ViewCtrl(float angle, Quaternion ViewTargetRotation, Vector3 viewPointPos)
     {
         if (isDead)
@@ -129,7 +158,8 @@ public class CharacterCtrl : ObjectCtrl
         {
             transform.rotation = Quaternion.Lerp(transform.rotation , ViewTargetRotation, 24f * Time.deltaTime);
             
-            Neck.LookAt(viewPointPos);
+            if(viewPointPos != null)
+                Neck.LookAt(viewPointPos);
             gunAim.GetViewPointPos(viewPointPos);
             gunAim.Aimming(angle);
         }
@@ -146,8 +176,12 @@ public class CharacterCtrl : ObjectCtrl
             switch (itemNum)
             {
                 case eItem.AKM:
-                    weaponList[0] = Instantiate( prefab,RHand).transform;
-                    weaponList[0].gameObject.SetActive(false);
+                    if (weaponList[0] == null)
+                    {
+                        weaponList[0] = Instantiate(prefab, RHand).transform;
+                        if (nWeaponState != 1)
+                            weaponList[0].gameObject.SetActive(false);
+                    }
                     break;
             }
         }
@@ -166,6 +200,7 @@ public class CharacterCtrl : ObjectCtrl
             return equipWeapon.GetComponent<Weapon>().IsAim(target);
         }
     }
+    
 
     public override void Enter()
     {

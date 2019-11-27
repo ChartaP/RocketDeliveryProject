@@ -53,8 +53,8 @@ MonoBehaviour:
   isTrigger: 0
   owner: {fileID: 0}
   itemPrefab: {fileID: 0}
-  weaponAudio: {fileID: 3731647897281181297}
-  triggerSound: {fileID: 8300000, guid: 89b4957f2e6ee4740adfdccd422b9262, type: 3}
+  TriggerSound: {fileID: 0}
+  WeaponAudio: {fileID: 0}
 --- !u!82 &3731647897281181297
 AudioSource:
   m_ObjectHideFlags: 0
@@ -76,9 +76,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 3
-  MaxDistance: 20
+  MaxDistance: 10
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0

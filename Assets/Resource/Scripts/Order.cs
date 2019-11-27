@@ -32,6 +32,12 @@ public class Order : MonoBehaviour
 
     public GameObject GoodsPrefab = null;
 
+    public GameObject PausePrefab = null;
+
+    private bool isPause = false;
+
+    private Transform PauseObj = null;
+
     [SerializeField]
     private List<Color> IconColorList;
     
@@ -47,6 +53,21 @@ public class Order : MonoBehaviour
         if(nOrderStack < 3)
         {
             OrderBuilding();
+        }
+        if (Input.GetKeyDown(KeyCode.Escape)){
+            if (isPause && PauseObj!=null)
+            {
+                isPause = false;
+                Destroy(PauseObj.gameObject, 0.01f);
+            }
+            else
+            {
+                if (Time.timeScale == 1.0f)
+                {
+                    isPause = true;
+                    PauseObj = Instantiate(PausePrefab, ReceiptTrans).transform;
+                }
+            }
         }
     }
 
@@ -111,8 +132,65 @@ public class Order : MonoBehaviour
 
     public void CompleteOrder(string GoodsName,float Timer)
     {
-        Instantiate(ReceiptPrefab, ReceiptTrans);
+        GameObject receipt =  Instantiate(ReceiptPrefab, ReceiptTrans);
+        int reward = timeToReward(Timer);
+        receipt.GetComponent<Receipt>().Set(GoodsName,FloatToStringTime(Timer),timeToScore(Timer), reward);
+        PlayerCtrl.Instance.GetMoney(reward);
         nOrderStack--;
+    }
+
+    private int timeToScore(float time)
+    {
+        if (time < 30)
+        {
+            return 5;
+        }
+        else if(time< 60)
+        {
+            return 4;
+        }
+        else if (time < 120)
+        {
+            return 3;
+        }
+        else if (time < 240)
+        {
+            return 2;
+        }
+        else if (time < 300)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    private int timeToReward(float time)
+    {
+        switch (timeToScore(time))
+        {
+            case 1:
+                return 8350;
+            case 2:
+                return 9000;
+            case 3:
+                return 10000;
+            case 4:
+                return 13000;
+            case 5:
+                return 16700;
+            default:
+                return 0;
+        }
+    }
+
+    private string FloatToStringTime(float fTime)
+    {
+        string m = ((int)(fTime / 60)).ToString();
+        string s = ((int)(fTime % 60)).ToString();
+        return m + "분 " + s+"초";
     }
 
     public void GameOver()

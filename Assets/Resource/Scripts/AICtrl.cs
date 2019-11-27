@@ -34,6 +34,7 @@ public class AICtrl : MonoBehaviour
             CurCtrl = manTrans.GetComponent<ObjectCtrl>();
             CurTrans = manTrans;
         }
+        StartCoroutine("VoiceCol");
     }
 
     void Update()
@@ -91,7 +92,6 @@ public class AICtrl : MonoBehaviour
         else
         {
         }
-
     }
 
     private void LateUpdate()
@@ -136,5 +136,16 @@ public class AICtrl : MonoBehaviour
     {
         DropItem item = ItemTrans.GetComponent<DropItem>();
         (CurCtrl as CharacterCtrl).GetItem(item);
+    }
+
+    IEnumerator VoiceCol()
+    {
+        while (true)
+        {
+            if(!bTakeCar)
+                (CurCtrl as CharacterCtrl).Voice(Random.Range(0, 3));
+            yield return new WaitForSeconds(1f);
+        }
+        yield break;
     }
 }

@@ -16,6 +16,17 @@ public class Receipt : MonoBehaviour
     public Transform rewardTrans;
     public Transform toBeContinuedTrans;
     // Start is called before the first frame update
+    public void Set(string goodsName,string timer, int score,int reward)
+    {
+        nameTrans.GetComponent<Text>().text = goodsName;
+        timerTrans.GetComponent<Text>().text = timer;
+        scoreTrans.GetComponent<Text>().text = "";
+        for (int n = 0; n < score; n++)
+        {
+            scoreTrans.GetComponent<Text>().text += "★";
+        }
+        rewardTrans.GetComponent<Text>().text = reward.ToString() + "원";
+    }
     void Start()
     {
         Cursor.visible = true;
@@ -65,7 +76,7 @@ public class Receipt : MonoBehaviour
             Pos = nameTrans.localPosition;
             Pos.x -= 4;
             nameTrans.localPosition = Pos;
-            yield return new WaitForSecondsRealtime(0.003f);
+            yield return new WaitForSecondsRealtime(0.008f);
         }
         timerTrans.GetComponent<Text>().enabled = true;
         for (int n = 0; n < 25; n++)
@@ -73,7 +84,7 @@ public class Receipt : MonoBehaviour
             Pos = timerTrans.localPosition;
             Pos.x -= 4;
             timerTrans.localPosition = Pos;
-            yield return new WaitForSecondsRealtime(0.003f);
+            yield return new WaitForSecondsRealtime(0.008f);
         }
         scoreTrans.GetComponent<Text>().enabled = true;
         for (int n = 0; n < 25; n++)
@@ -81,7 +92,7 @@ public class Receipt : MonoBehaviour
             Pos = scoreTrans.localPosition;
             Pos.x -= 4;
             scoreTrans.localPosition = Pos;
-            yield return new WaitForSecondsRealtime(0.003f);
+            yield return new WaitForSecondsRealtime(0.008f);
         }
         rewardTrans.GetComponent<Text>().enabled = true;
         for (int n = 0; n < 25; n++)
@@ -89,7 +100,7 @@ public class Receipt : MonoBehaviour
             Pos = rewardTrans.localPosition;
             Pos.x -= 4;
             rewardTrans.localPosition = Pos;
-            yield return new WaitForSecondsRealtime(0.003f);
+            yield return new WaitForSecondsRealtime(0.008f);
         }
         yield break;
     }

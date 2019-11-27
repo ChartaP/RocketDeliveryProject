@@ -121,9 +121,9 @@ public class Building : MonoBehaviour
         if(PlayerCtrl.Instance.manTrans.GetComponent<CouponmanCtrl>().myBag.IsInBagGoods(Goods.GetComponent<Goods>().ID))
         {
             Transform temp = null;
-            PlayerCtrl.Instance.manTrans.GetComponent<CouponmanCtrl>().myBag.UnloadGoods(out temp);
+            PlayerCtrl.Instance.manTrans.GetComponent<CouponmanCtrl>().myBag.UnloadGoods(Goods.GetComponent<Goods>().ID, out temp);
             Inactive();
-            Order.Instance.CompleteOrder(temp.GetComponent<Goods>().ID.ToString(),fTimer);
+            Order.Instance.CompleteOrder(temp.GetComponent<Goods>().GoodsName,fTimer);
             Destroy(temp.gameObject, 0.1f);
             Order.Instance.ReturnIconColor(myColor);
         }

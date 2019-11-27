@@ -33,6 +33,10 @@ public class PeopleCtrl : CharacterCtrl
             Move_Dir = new Vector3(X, 0, Z);
             Move_Dir = transform.TransformDirection(Move_Dir);
             Move_Dir *= fSpeed;
+            if (Move_Dir.magnitude > 0.0f)
+            {
+                PlayStepSound();
+            }
 
             Move_Dir.y = Y * fJump;
             if (Y * fJump > 1f)
@@ -53,5 +57,6 @@ public class PeopleCtrl : CharacterCtrl
         AniCtrl.SetFloat("zSpeed", Z * fSpeed);
         CharCtrl.Move(Move_Dir * Time.deltaTime);
     }
+
 
 }

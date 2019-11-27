@@ -35,6 +35,7 @@ public class CouponmanCtrl : CharacterCtrl
         {
             weaponList[0].GetComponent<Weapon>().DropItem(transform);
         }
+        Voice(3, true);
         NPCGenerator.Instance.UnregNPC(gameObject);
         Regdoll.transform.parent = transform.parent;
         Regdoll.SetActive(true);
@@ -57,13 +58,9 @@ public class CouponmanCtrl : CharacterCtrl
                     if (weaponList[0] == null)
                     {
                         weaponList[0] = Instantiate(prefab, RHand).transform;
+                        if (nWeaponState != 1)
+                            weaponList[0].gameObject.SetActive(false);
                     }
-                    else
-                    {
-                        Destroy(weaponList[0].gameObject);
-                        weaponList[0] = Instantiate(prefab, RHand).transform;
-                    }
-                    weaponList[0].gameObject.SetActive(false);
                     ItemDropInspector.Instance.ItemDrop("Assault Rifle - AKM");
                     break;
             }
@@ -80,7 +77,10 @@ public class CouponmanCtrl : CharacterCtrl
             Move_Dir = new Vector3(X, 0, Z);
             Move_Dir = transform.TransformDirection(Move_Dir);
             Move_Dir *= fSpeed;
-
+            if (Move_Dir.magnitude > 0.0f)
+            {
+                PlayStepSound();
+            }
             Move_Dir.y = Y * fJump;
             if(Y * fJump > 1f)
             {

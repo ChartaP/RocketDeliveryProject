@@ -77,9 +77,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 3299493194081542723}
-  ItemNum: 20
+  eItemNum: 20
   equipPrefab: {fileID: 5838987037157010143, guid: 7ebb33da827783e4fad03097d1efbf67,
     type: 3}
+  PickSound: {fileID: 8300000, guid: 2ae41e984ff1f3e4a840a1a46b6a8816, type: 3}
 --- !u!114 &8114518370544692804
 MonoBehaviour:
   m_ObjectHideFlags: 0

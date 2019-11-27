@@ -23,9 +23,11 @@ public class GameOver : MonoBehaviour
         BGImage.color = new Color(128, 128, 128, 0);
         MSG.text = "";
         Color c;
+        Time.timeScale = 1.0f;
         for (int n = 0; n < 10; n++)
         {
-            Time.timeScale -= 0.1f;
+            if(Time.timeScale >= 0.1f)
+                Time.timeScale -= 0.1f;
             yield return new WaitForSecondsRealtime(0.08f);
         }
         BGImage.color = Color.white;

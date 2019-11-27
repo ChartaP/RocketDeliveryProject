@@ -13,6 +13,7 @@ TagManager:
   - Building
   - Regdoll
   - Sensor
+  - Vending
   layers:
   - Default
   - TransparentFX

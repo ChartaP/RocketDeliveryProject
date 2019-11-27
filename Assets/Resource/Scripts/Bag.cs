@@ -35,7 +35,7 @@ public class Bag : MonoBehaviour
         }
     }
 
-    public bool UnloadGoods(out Transform Goods)
+    public bool UnloadGoods(int ID,out Transform Goods)
     {
         if(GoodsList.Count == 0)
         {
@@ -44,11 +44,22 @@ public class Bag : MonoBehaviour
         }
         else
         {
-            GoodsList[GoodsList.Count - 1].parent = NPCGenerator.Instance.ObjectTrans;
-            Goods = GoodsList[GoodsList.Count-1];
-            GoodsList.RemoveAt(GoodsList.Count - 1);
-            return true;
-
+            for(int n = 0;n<GoodsList.Count; n++)
+            {
+                if (GoodsList[n].GetComponent<Goods>().ID == ID)
+                {
+                    GoodsList[n].parent = NPCGenerator.Instance.ObjectTrans;
+                    Goods = GoodsList[n];
+                    GoodsList.RemoveAt(n);
+                    for(int m = n; m < GoodsList.Count; m++)
+                    {
+                        GoodsList[n].localPosition = new Vector3(0, m * 1.1f, 0);
+                    }
+                    return true;
+                }
+            }
+            Goods = null;
+            return false;
         }
     }
 

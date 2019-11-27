@@ -14,6 +14,8 @@ public class PlayerCtrl : MonoBehaviour
     private ObjectCtrl CurCtrl;
     [SerializeField]
     private bool bTakeCar = false;
+    [SerializeField]
+    private int nMoney = 0;
 
     public static PlayerCtrl Instance
     {
@@ -29,21 +31,34 @@ public class PlayerCtrl : MonoBehaviour
 
     private void OnGUI()
     {
-        if (CurTrans == null)
-            return;
-        GUIStyle style = new GUIStyle();
-        style.fontSize = 24;
-        style.normal.textColor = Color.white;
-
-        if (bTakeCar)
+        if (CurTrans != null)
         {
-            GUI.Label(new Rect(32, Screen.height - 64, 128, 32), CurCtrl.GetSpeed()+"Km/h", style);
+            GUIStyle style = new GUIStyle();
+            style.fontSize = 24;
+            style.normal.textColor = Color.white;
+
+            if (bTakeCar)
+            {
+                GUI.Label(new Rect(32, Screen.height - 64, 128, 32), CurCtrl.GetSpeed() + "Km/h", style);
+            }
+            GUI.Label(new Rect(32, Screen.height - 32, 128, 32), "HP:" + manTrans.GetComponent<ObjectCtrl>().CurHP + "/" + manTrans.GetComponent<ObjectCtrl>().MaxHP, style);
+            string cur;
+            string max;
+            manTrans.GetComponent<CouponmanCtrl>().GetChargeState(out cur, out max);
+            style.alignment = TextAnchor.MiddleRight;
+            string weapon = "";
+            switch (manTrans.GetComponent<CharacterCtrl>().CurWeapon)
+            {
+                case 0:
+                    weapon = "불주먹";
+                    break;
+                case 1:
+                    weapon = "AKM";
+                    break;
+            }
+            GUI.Label(new Rect(Screen.width - 96, Screen.height - 32, 64, 32),weapon+"     "+ cur + "/" + max, style);
+            GUI.Label(new Rect(Screen.width - 96, Screen.height - 64, 64, 32), nMoney + "원", style);
         }
-        GUI.Label(new Rect(32,Screen.height -32, 128, 32), "HP:"+manTrans.GetComponent<ObjectCtrl>().CurHP+"/"+manTrans.GetComponent<ObjectCtrl>().MaxHP, style);
-        string cur;
-        string max;
-        manTrans.GetComponent<CouponmanCtrl>().GetChargeState(out cur,out max);
-        GUI.Label(new Rect(Screen.width - 64, Screen.height - 32, 64, 32), cur + "/" + max, style);
 
     }
 
@@ -60,13 +75,20 @@ public class PlayerCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (CurTrans == null)
-            return;
-        if(CurCtrl == null && bTakeCar)
+        if (Input.GetKeyDown(KeyCode.P))
         {
-            bTakeCar = false;
-            cameraInteraction.IsEnable = true;
-            ChangeCtrl(manTrans);
+            GetMoney(1000000);
+        }
+        if(CurCtrl == null )
+        {
+            if (bTakeCar)
+            {
+                bTakeCar = false;
+                cameraInteraction.IsEnable = true;
+                ChangeCtrl(manTrans);
+            }
+            else
+                return;
         }
         CurCtrl.Ctrl(Input.GetAxis("Horizontal"),Input.GetAxis("Jump"), Input.GetAxis("Vertical"));
         
@@ -104,6 +126,24 @@ public class PlayerCtrl : MonoBehaviour
         }
     }
 
+    public void GetMoney(int nReward)
+    {
+        nMoney += nReward;
+    }
+
+    public bool UseMoney(int nPrice)
+    {
+        if(nMoney - nPrice >= 0)
+        {
+            nMoney -= nPrice;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public void TakeInCar(Transform CarTrans)
     {
         bTakeCar = true;
@@ -131,5 +171,18 @@ public class PlayerCtrl : MonoBehaviour
     {
         DropItem item = ItemTrans.GetComponent<DropItem>();
         (CurCtrl as CharacterCtrl).GetItem(item);
+    }
+
+    public void Purchase(Transform VendingTrans)
+    {
+        VendingMachine machine = VendingTrans.GetComponent<VendingMachine>();
+        if (UseMoney(machine.Price))
+        {
+            machine.Purchase(CurCtrl);
+        }
+        else
+        {
+            MsgInspector.Instance.Msg("돈이 부족합니다");
+        }
     }
 }
