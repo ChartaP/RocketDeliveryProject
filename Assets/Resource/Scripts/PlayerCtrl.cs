@@ -70,6 +70,8 @@ public class PlayerCtrl : MonoBehaviour
                 cameraInteraction.Interact();
             if (Input.GetKeyDown(KeyCode.X))
                 (CurCtrl as CharacterCtrl).ChangeWeapon(0);
+            if (Input.GetKeyDown(KeyCode.R))
+                (CurCtrl as CharacterCtrl).ReloadWeapon();
             if (Input.GetKeyDown(KeyCode.Alpha1))
                 (CurCtrl as CharacterCtrl).ChangeWeapon(1);
             if (Input.GetMouseButtonDown(0))

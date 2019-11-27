@@ -51,7 +51,8 @@ public class CouponmanCtrl : CharacterCtrl
             switch (itemNum)
             {
                 case eItem.AKM:
-                    weaponList[0] = prefab;
+                    weaponList[0] = Instantiate( prefab,RHand).transform;
+                    weaponList[0].gameObject.SetActive(false);
                     ItemDropInspector.Instance.ItemDrop("Assault Rifle - AKM");
                     break;
             }

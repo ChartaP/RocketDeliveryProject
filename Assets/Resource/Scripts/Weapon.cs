@@ -30,7 +30,10 @@ public class Weapon : MonoBehaviour
 
     [SerializeField]
     protected GameObject itemPrefab = null;
-    
+    [SerializeField]
+    protected AudioClip TriggerSound;
+    [SerializeField]
+    protected AudioSource WeaponAudio = null;
     
     public virtual void RegOwner(CharacterCtrl owner)
     {
@@ -60,7 +63,12 @@ public class Weapon : MonoBehaviour
         {
             if (!isTrigger)
                 break;
-            Fire(Anim);
+            if (!Fire(Anim))
+            {
+                WeaponAudio.clip = TriggerSound;
+                WeaponAudio.Play();
+                break;
+            }
 
             yield return new WaitForSeconds(fCooldown);
         }
@@ -68,13 +76,24 @@ public class Weapon : MonoBehaviour
         yield break;
     }
 
-    protected virtual void Fire(Animator Anim)
+    public virtual bool Reload(Animator Anim)
+    {
+        return true;
+    }
+
+    public virtual bool IsStandBy()
+    {
+        return true;
+    }
+
+    protected virtual bool Fire(Animator Anim)
     {
         Anim.SetTrigger("WeaponFire");
         GameObject temp = Instantiate(bullet, startpoint.position, startpoint.rotation, owner.transform.parent);
         temp.tag = owner.tag;
         temp.GetComponent<Bullet>().SetBullet(fDamage, 1);
         temp.GetComponent<Rigidbody>().AddForce(startpoint.forward * 500f);
+        return true;
     }
 
     public virtual bool IsAim(GameObject target)

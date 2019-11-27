@@ -14,8 +14,8 @@ public class CharacterCtrl : ObjectCtrl
     public GunAim gunAim = null;
     protected Transform Neck = null;
     [SerializeField]
-    protected GameObject[] weaponList = new GameObject[1];
-    protected GameObject equipWeapon = null;
+    protected Transform[] weaponList = new Transform[1];
+    protected Transform equipWeapon = null;
     [SerializeField]
     protected Transform RHand;
     [SerializeField]
@@ -38,6 +38,18 @@ public class CharacterCtrl : ObjectCtrl
         Destroy(gameObject, 0.01f);
     }
 
+    public bool IsWeaponStandBy()
+    {
+        if(nWeaponState == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return equipWeapon.GetComponent<Weapon>().IsStandBy();
+        }
+    }
+
     public bool ChangeWeapon(int state)
     {
         
@@ -46,7 +58,10 @@ public class CharacterCtrl : ObjectCtrl
         if (state != 0)
         {
             if (weaponList[state - 1] == null)
+            {
                 return false;
+            }
+
         }
         
         TriggerWeapon(false);
@@ -56,12 +71,16 @@ public class CharacterCtrl : ObjectCtrl
         AniCtrl.SetInteger("nWeaponState", state);
         if (state != 0)
         {
-            equipWeapon = Instantiate(weaponList[state - 1], RHand);
+            equipWeapon = weaponList[state - 1];
+            equipWeapon.gameObject.SetActive(true);
             equipWeapon.tag = transform.tag;
             equipWeapon.GetComponent<Weapon>().RegOwner(this);
         }
         else
+        {
+            equipWeapon.gameObject.SetActive(false);
             equipWeapon = null;
+        }
         
         return true;
     }
@@ -81,6 +100,18 @@ public class CharacterCtrl : ObjectCtrl
                 equipWeapon.GetComponent<Weapon>().Trigger(AniCtrl);
             else
                 equipWeapon.GetComponent<Weapon>().Untrigger();
+        }
+    }
+
+    public void ReloadWeapon()
+    {
+        if(nWeaponState == 0)
+        {
+
+        }
+        else
+        {
+            equipWeapon.GetComponent<Weapon>().Reload(AniCtrl);
         }
     }
 
@@ -109,7 +140,8 @@ public class CharacterCtrl : ObjectCtrl
             switch (itemNum)
             {
                 case eItem.AKM:
-                    weaponList[0] = prefab;
+                    weaponList[0] = Instantiate( prefab,RHand).transform;
+                    weaponList[0].gameObject.SetActive(false);
                     break;
             }
         }

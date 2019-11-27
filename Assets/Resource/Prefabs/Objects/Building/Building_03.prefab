@@ -19033,7 +19033,7 @@ GameObject:
   - component: {fileID: 184836563201249130}
   - component: {fileID: 3264212986496401420}
   - component: {fileID: 2944824282147050624}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Building_03
   m_TagString: Building
   m_Icon: {fileID: 0}
@@ -19096,6 +19096,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6258674312942406726}
     m_Modifications:
+    - target: {fileID: 168476, guid: 8229f963b32dc724c801fafd4a38147d, type: 3}
+      propertyPath: m_Name
+      value: building_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 168476, guid: 8229f963b32dc724c801fafd4a38147d, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 499184, guid: 8229f963b32dc724c801fafd4a38147d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -19147,14 +19155,6 @@ PrefabInstance:
     - target: {fileID: 499184, guid: 8229f963b32dc724c801fafd4a38147d, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.027076375
-      objectReference: {fileID: 0}
-    - target: {fileID: 168476, guid: 8229f963b32dc724c801fafd4a38147d, type: 3}
-      propertyPath: m_Name
-      value: building_3
-      objectReference: {fileID: 0}
-    - target: {fileID: 168476, guid: 8229f963b32dc724c801fafd4a38147d, type: 3}
-      propertyPath: m_Layer
-      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6420748, guid: 8229f963b32dc724c801fafd4a38147d, type: 3}
       propertyPath: m_Enabled
