@@ -686,15 +686,14 @@ MonoBehaviour:
   isEnter: 0
   passenger: {fileID: 0}
   EngineSounds:
-  - {fileID: 8300000, guid: 4ce5536d09910a148a92ac5408ae3c4b, type: 3}
-  - {fileID: 8300000, guid: c502041826854664683f9914f63427b0, type: 3}
-  - {fileID: 8300000, guid: bb683044c23cd50438d45fe475089c84, type: 3}
-  - {fileID: 8300000, guid: 75fa27e467267c74f91f1f6f4e74ff88, type: 3}
-  - {fileID: 8300000, guid: 30ab19edabbfdea499f3db426001e120, type: 3}
-  - {fileID: 8300000, guid: 22cd46996da3b624bb08935264560d8c, type: 3}
-  - {fileID: 8300000, guid: 132c1515ea005404fb6144c976c99ed6, type: 3}
-  - {fileID: 8300000, guid: e9643d8581d235f45a62997cba851988, type: 3}
-  - {fileID: 8300000, guid: aa60e7347d433244fb6223eac9a95b85, type: 3}
+  - {fileID: 8300000, guid: 67ae6a1dbba409441aaebc58317a1679, type: 3}
+  - {fileID: 8300000, guid: 79a92db4ffb20fd449e669effcfbde63, type: 3}
+  - {fileID: 8300000, guid: 3048985a7798b684d860bddb83bbc5c0, type: 3}
+  - {fileID: 8300000, guid: caf21a066ef472541b74cc6f46cb4d79, type: 3}
+  - {fileID: 8300000, guid: aab9893499f2db14d982ea3c214622ec, type: 3}
+  - {fileID: 8300000, guid: 92b51350a374b0145ba411bf6037d2af, type: 3}
+  - {fileID: 8300000, guid: 1a28469b66ddc3f4394165b2634f368d, type: 3}
+  - {fileID: 8300000, guid: ee68262e7a73a4c4b8e940ecd2330b7b, type: 3}
   CarAudio: {fileID: -3585174011043927193}
   WheelMesh:
   - {fileID: 2096851849978237599}
@@ -702,6 +701,7 @@ MonoBehaviour:
   - {fileID: 2091833801993490095}
   - {fileID: 2096855790201889191}
   eType: 0
+  eCurEngineState: 0
   bSideGear: 1
 --- !u!114 &-3324904046210961635
 MonoBehaviour:

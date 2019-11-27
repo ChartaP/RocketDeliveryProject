@@ -22,6 +22,11 @@ public class CharacterCtrl : ObjectCtrl
     protected Weapon Punch;
     [SerializeField]
     protected GameObject Regdoll = null;
+    [SerializeField]
+    protected AudioClip[] StepSound;
+    [SerializeField]
+    protected AudioSource CharAudio;
+
 
     public int CurWeapon {get{return nWeaponState;}}
 

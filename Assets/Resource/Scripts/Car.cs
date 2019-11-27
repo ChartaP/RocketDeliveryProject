@@ -47,7 +47,8 @@ public class Car : MonoBehaviour
     private List<Transform> WheelMesh = new List<Transform>();
     [SerializeField]
     private eCarType eType = eCarType.Close;
-    
+    [SerializeField]
+    private eSpeed eCurEngineState = eSpeed.Idle;
     private float Speed;
 
     private bool isAccel = false;
@@ -99,38 +100,95 @@ public class Car : MonoBehaviour
 
     IEnumerator EngineSound()
     {
+        CarAudio.loop = false;
         CarAudio.clip = EngineSounds[0];
         CarAudio.Play();
         eSpeed SpeedState = eSpeed.Idle;
+        bool bAccel = false;
         while(CarAudio.isPlaying)
         {
             yield return null;
         }
-        while (true)
+        CarAudio.loop = true;
+        CarAudio.clip = EngineSounds[1];
+        CarAudio.Play();
+        while (isEnter)
         {
             if (Speed < 2)
             {
                 SpeedState = eSpeed.Idle;
             }
+            else if(Speed < 30)
+            {
+                SpeedState = eSpeed.Low;
+            }
+            else if (Speed < 60)
+            {
+                SpeedState = eSpeed.Med;
+            }
             else
             {
-
+                SpeedState = eSpeed.High;
             }
-            yield return null;
+            if (eCurEngineState != SpeedState)
+            {
+                eCurEngineState = SpeedState;
+                switch (eCurEngineState)
+                {
+                    case eSpeed.Idle:
+                        CarAudio.clip = EngineSounds[1];
+                        CarAudio.Play();
+                        break;
+                    case eSpeed.Low:
+                        CarAudio.clip = EngineSounds[bAccel ? 3 : 2];
+                        CarAudio.Play();
+                        break;
+                    case eSpeed.Med:
+                        CarAudio.clip = EngineSounds[bAccel ? 5 : 4];
+                        CarAudio.Play();
+                        break;
+                    case eSpeed.High:
+                        CarAudio.clip = EngineSounds[bAccel ? 7 : 6];
+                        CarAudio.Play();
+                        break;
+                }
+            }
+            if(isAccel != bAccel)
+            {
+                bAccel = isAccel;
+                switch (eCurEngineState)
+                {
+                    case eSpeed.Idle:
+                        CarAudio.clip = EngineSounds[1];
+                        CarAudio.Play();
+                        break;
+                    case eSpeed.Low:
+                        CarAudio.clip = EngineSounds[bAccel?3:2];
+                        CarAudio.Play();
+                        break;
+                    case eSpeed.Med:
+                        CarAudio.clip = EngineSounds[bAccel?5:4];
+                        CarAudio.Play();
+                        break;
+                    case eSpeed.High:
+                        CarAudio.clip = EngineSounds[bAccel?7:6];
+                        CarAudio.Play();
+                        break;
+                }
+            }
+            yield return new WaitForSeconds(0.2f);
         }
-
         yield break;
     }
 
     public void Accel(float fSpeed)
     {
-        isAccel = fSpeed > 0.1f;
+        isAccel = (fSpeed > 0.1f);
         if (curTrans == eTransmission.P && fSpeed > 0.1f)
         {
             BRightWheel.brakeTorque = 0;
             BLeftWheel.brakeTorque = 0;
             ChangeTrans(eTransmission.N);
-            StartCoroutine("EngineSound");
         }
         //CarRigidbody.AddForce(transform.up * -fSpeed *10f  );
         float Boost = 1f;
@@ -147,10 +205,10 @@ public class Car : MonoBehaviour
             BRightWheel.brakeTorque = fSpeed;
             BLeftWheel.brakeTorque = fSpeed;
         }
-        else
+        else if(fSpeed>0.1f)
         {
             curTrans = eTransmission.P;
-            StopCoroutine("EngineSound");
+            
         }
     }
 
@@ -205,6 +263,7 @@ public class Car : MonoBehaviour
 
     private void CarActivate()
     {
+        StartCoroutine("EngineSound");
         FRightWheel.brakeTorque = 0;
         FLeftWheel.brakeTorque = 0;
         BRightWheel.brakeTorque = 0;
@@ -213,6 +272,7 @@ public class Car : MonoBehaviour
 
     private void CarUnactivate()
     {
+        StopCoroutine("EngineSound");
         FRightWheel.brakeTorque = 100f;
         FLeftWheel.brakeTorque = 100f;
         BRightWheel.brakeTorque = 100f;
@@ -261,7 +321,7 @@ public class Car : MonoBehaviour
     {
         if (collision.transform.tag == transform.tag)
             return;
-        if (!(collision.transform.tag == "Untagged" || collision.transform.tag == "Sensor" || collision.transform.tag == "Terrain" || collision.transform.tag == "Item" || collision.transform.tag == "Regdoll"))
+        if (collision.transform.tag == "Player" || collision.transform.tag == "Enemy" || collision.transform.tag == "Car")
         {
             collision.transform.GetComponent<ObjectCtrl>().GetDamage((Speed>20f?Speed:0) * 4 );
         }
